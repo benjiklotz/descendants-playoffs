@@ -1,0 +1,2138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Descendants of Travel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --paper: #FBFBFA; --panel: #FFFFFF; --panel-2: #F1F0EC; --ink: #121A2B; --ink-2: #4B5468; --muted: #6B7385; --rule: #E2E8F0; --rule-2: #C9CFD9;
+  --navy: #14213D; --on-navy: #F7F5EE; --gold: #B8860B; --gold-soft: #F6EFD8; --gold-ink: #5A4300;
+  --wild: #2F4A7A; --wild-soft: #E6ECF6;
+  --win: #1D6B45; --win-soft: #E0F0E7; --loss: #A52F2F; --loss-soft: #F6E3E3;
+  --focus: #1D4ED8; --accent: #E25822; --accent-soft: #FBE7DD; --accent-ink: #8A3410;
+  --font-display: 'Space Grotesk', 'Plus Jakarta Sans', 'Helvetica Neue', sans-serif;
+  --font-body: 'Plus Jakarta Sans', 'Segoe UI Variable', 'Helvetica Neue', sans-serif;
+  --s1: #2a78d6; --s2: #eb6834; --s3: #1baf7a; --s4: #eda100; --s5: #e87ba4; --s6: #008300; --s7: #6250d6; --s8: #e34948;
+  box-sizing: border-box;
+  padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  color-scheme: dark;
+  --paper: #0F131B; --panel: #151B26; --panel-2: #1D2532; --ink: #ECEEF2; --ink-2: #B8BFCC; --muted: #8E97A8; --rule: #273040; --rule-2: #3A4556;
+  --navy: #0B1120; --on-navy: #F3F1EA; --gold: #D9A62A; --gold-soft: #2E2510; --gold-ink: #F0D58A;
+  --wild: #9DB3E0; --wild-soft: #1A2538;
+  --win: #4FC58A; --win-soft: #14301F; --loss: #E57373; --loss-soft: #3A1818; --accent: #FF7A45; --accent-soft: #3A2114; --accent-ink: #FFB08A;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+} }
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --paper: #0F131B; --panel: #151B26; --panel-2: #1D2532; --ink: #ECEEF2; --ink-2: #B8BFCC; --muted: #8E97A8; --rule: #273040; --rule-2: #3A4556;
+  --navy: #0B1120; --on-navy: #F3F1EA; --gold: #D9A62A; --gold-soft: #2E2510; --gold-ink: #F0D58A;
+  --wild: #9DB3E0; --wild-soft: #1A2538;
+  --win: #4FC58A; --win-soft: #14301F; --loss: #E57373; --loss-soft: #3A1818; --accent: #FF7A45; --accent-soft: #3A2114; --accent-ink: #FFB08A;
+  --s1: #3987e5; --s2: #d95926; --s3: #199e70; --s4: #c98500; --s5: #d55181; --s6: #008300; --s7: #9085e9; --s8: #e66767;
+}
+html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+*, *::before, *::after { box-sizing: inherit; }
+html, body { margin: 0; }
+body {
+  background: var(--paper); color: var(--ink);
+  font-family: var(--font-body); font-size: 14px; line-height: 1.45;
+  font-variant-numeric: tabular-nums; font-feature-settings: "tnum" 1;
+  -webkit-font-smoothing: antialiased;
+}
+button { font: inherit; color: inherit; cursor: pointer; }
+button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+input, select, textarea { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--rule-2); border-radius: 2px; padding: 6px 9px; }
+textarea { font-family: var(--font-body); font-size: 14px; line-height: 1.5; width: 100%; resize: vertical; }
+h1, h2, h3 { margin: 0; font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+h1 { font-size: 24px; }
+h2 { font-size: 16px; }
+.board > div > div:first-child h2 { border-left: 3px solid var(--accent); padding-left: 8px; }
+h3 { font-size: 13px; font-family: var(--font-body); font-weight: 600; letter-spacing: .01em; color: var(--ink-2); }
+p { margin: 0; }
+.muted { color: var(--muted); }
+.small { font-size: 13px; }
+.num { font-variant-numeric: tabular-nums; }
+
+/* masthead */
+header.top { background: var(--navy); color: var(--on-navy); padding: 16px 20px 14px; overflow-wrap: anywhere; }
+header.top .wrap { max-width: 1320px; margin: 0 auto; display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: flex-end; justify-content: space-between; }
+header.top .status { opacity: .78; font-size: 13px; margin-top: 4px; max-width: 80ch; }
+header.top .actions { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+
+/* buttons */
+.btn { border: 1px solid var(--ink); background: var(--panel); color: var(--ink); border-radius: 2px; padding: 6px 11px; font-weight: 600; font-size: 13px; line-height: 1.2; transition: background-color .15s, color .15s, transform .15s; }
+.btn:hover { background: var(--ink); color: var(--paper); }
+.btn:active { transform: translateY(1px); }
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn.primary:hover { background: var(--ink-2); border-color: var(--ink-2); }
+.btn.ghost { background: transparent; color: var(--on-navy); border-color: rgba(247,245,238,.45); }
+.btn.ghost:hover { background: var(--on-navy); color: var(--navy); border-color: var(--on-navy); }
+.btn.sm { padding: 4px 9px; font-size: 12px; }
+.btn:disabled { opacity: .4; cursor: default; }
+.btn:disabled:hover { background: transparent; color: inherit; transform: none; }
+.btn.ghost:disabled:hover { color: var(--on-navy); border-color: rgba(247,245,238,.45); }
+.btn[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+.seg { display: inline-flex; border: 1px solid var(--ink); border-radius: 2px; overflow: hidden; }
+.seg button { border: 0; background: transparent; padding: 5px 11px; font-weight: 600; font-size: 13px; transition: background-color .15s, color .15s; }
+.seg button + button { border-left: 1px solid var(--ink); }
+.seg button:hover { background: var(--panel-2); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+@media (max-width: 600px) { .panel > .ph > .seg { display: flex; width: 100%; } .panel > .ph > .seg button { flex: 1 1 0; padding: 6px 2px; font-size: 12px; white-space: nowrap; } }
+.seg.light { border-color: rgba(247,245,238,.45); }
+.seg.light button { font-size: 12px; padding: 4px 9px; color: var(--on-navy); }
+.seg.light button + button { border-left-color: rgba(247,245,238,.45); }
+.seg.light button:hover { background: rgba(247,245,238,.12); }
+.seg.light button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+
+/* layout */
+main { max-width: 1320px; margin: 0 auto; padding: 18px 20px 60px; display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 6fr); gap: 20px; align-items: start; }
+@media (max-width: 900px) { main { grid-template-columns: minmax(0, 1fr); padding: 14px 12px 50px; gap: 20px; } header.top { padding: 14px 12px 12px; } }
+
+.panel { background: var(--panel); border: 1px solid var(--rule-2); border-radius: 2px; }
+.panel > .ph { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding: 10px 14px; border-bottom: 1px solid var(--rule); }
+.panel > .pb { padding: 12px 14px 14px; }
+@media (max-width: 600px) { .panel > .ph { padding: 10px 12px; } .panel > .pb { padding: 12px; } }
+
+.tabs { display: flex; gap: 0; flex-wrap: wrap; padding: 10px 14px 0; }
+.tabs button { border: 1px solid var(--rule-2); border-left-width: 0; background: transparent; padding: 4px 10px; font-size: 12px; font-weight: 600; transition: background-color .15s, color .15s; }
+.tabs button:first-child { border-left-width: 1px; border-radius: 2px 0 0 2px; }
+.tabs button:last-child { border-radius: 0 2px 2px 0; }
+.tabs button:hover { background: var(--panel-2); }
+.tabs button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); }
+.tabs button .tick { margin-left: 5px; font-size: 11px; color: var(--accent); }
+.tabs button[aria-pressed="true"] .tick { color: var(--paper); }
+@media (max-width: 600px) { .tabs { padding: 10px 12px 0; } }
+
+/* matchups */
+.matchups { display: flex; flex-direction: column; gap: 6px; padding: 12px 14px 14px; }
+@media (max-width: 600px) { .matchups { padding: 12px; } }
+.mtools { display: flex; gap: 8px; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; margin-bottom: 4px; }
+.mtools .mbtns { display: flex; gap: 8px; margin-left: auto; }
+details.heatnote { font-size: 12px; color: var(--ink-2); flex: 1 1 260px; min-width: 0; }
+details.heatnote summary { cursor: pointer; list-style: none; padding: 4px 0; }
+details.heatnote summary::-webkit-details-marker { display: none; }
+details.heatnote summary::after { content: ' ⓘ'; color: var(--muted); }
+details.heatnote .hk { display: inline-block; font-family: var(--font-display); font-weight: 700; font-size: 11px; color: #fff; background: var(--accent); padding: 1px 5px; border-radius: 2px; margin-right: 4px; }
+details.heatnote p { margin: 4px 0 6px; max-width: 70ch; color: var(--muted); }
+.mu { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: stretch; gap: 8px; }
+.mu > * { min-width: 0; }
+.mu .vs { align-self: center; color: var(--muted); font-size: 12px; width: 30px; text-align: center; }
+.mu .vs.heat { font-family: var(--font-display); line-height: 1; width: 34px; height: 36px; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; border: 1px solid var(--rule-2); border-radius: 2px; color: var(--muted); margin: 0 -2px; cursor: help; }
+.mu .vs.heat b { font-weight: 700; font-size: 15px; }
+.mu.muhead { margin-bottom: -2px; }
+.mu.muhead .muh { font-size: 11px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); padding: 0 2px; }
+.mu.muhead .muh.right { text-align: right; }
+.mu .vs.heathead { width: 34px; font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--accent-ink); border-bottom: 2px solid var(--accent); padding-bottom: 2px; margin: 0 -2px; cursor: help; }
+.mu .vs.heat small { font-family: var(--font-body); font-size: 8.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; opacity: .85; }
+.mu .vs.heat.h4, .mu .vs.heat.h5, .mu .vs.heat.h6 { color: var(--ink); border-color: var(--ink-2); }
+.mu .vs.heat.h7, .mu .vs.heat.h8 { color: var(--accent-ink); border-color: var(--accent); background: var(--accent-soft); }
+.mu .vs.heat.h9, .mu .vs.heat.h10 { color: #fff; border-color: var(--accent); background: var(--accent); }
+.st { font-size: 12px; font-weight: 700; letter-spacing: .02em; }
+.st.clinch { color: var(--accent-ink); background: var(--accent-soft); padding: 1px 6px; border-radius: 2px; }
+.st.elim { color: var(--loss); }
+.st.alive { color: var(--muted); font-weight: 500; }
+.scen { padding: 12px 14px 18px; }
+@media (max-width: 600px) { .scen { padding: 12px; } }
+.scen .summary { margin: 8px 0 12px; font-size: 14px; }
+.scen .summary p { margin: 2px 0; }
+.scen .sh { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.side { border: 1px solid var(--rule-2); border-radius: 2px; padding: 8px 10px; background: var(--panel); display: flex; flex-direction: column; gap: 2px; text-align: left; min-height: 52px; transition: border-color .15s, background-color .15s; }
+.side.right { text-align: right; align-items: flex-end; }
+.side .nm { font-weight: 700; line-height: 1.2; }
+.side .meta { font-size: 11.5px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 1px 8px; }
+.side.right .meta { justify-content: flex-end; }
+.side .bar { height: 2px; background: var(--panel-2); width: 100%; margin-top: 4px; overflow: hidden; }
+.side .bar i { display: block; height: 100%; background: var(--ink-2); }
+.side.right .bar i { margin-left: auto; }
+.side:hover { border-color: var(--ink); }
+.side.win { background: var(--win-soft); border-color: var(--win); }
+.side.win .nm::after { content: ' W'; color: var(--win); font-weight: 700; }
+.side.lose { opacity: .55; }
+.side.lose .nm::after { content: ' L'; color: var(--loss); font-weight: 700; }
+.side.final { cursor: default; }
+.side.final:hover { border-color: var(--rule-2); }
+.side .score { font-weight: 600; color: var(--ink); }
+b.live { color: var(--win); font-weight: 700; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+b.done { color: var(--muted); font-weight: 700; font-size: 11px; letter-spacing: .04em; text-transform: uppercase; }
+.side .meta b.live, .side .meta b.done { margin-left: 5px; }
+
+/* fair play order */
+details.fpo { border-top: 1px solid var(--rule); margin-top: 8px; padding-top: 8px; }
+details.fpo summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-weight: 600; }
+details.fpo summary::-webkit-details-marker { display: none; }
+details.fpo summary .ttl::before { content: '+'; font-family: var(--font-display); font-size: 16px; margin-right: 8px; color: var(--muted); }
+details.fpo[open] summary .ttl::before { content: '–'; }
+details.fpo summary .hint { font-weight: 400; font-size: 13px; color: var(--muted); }
+.fpo .fpnote { font-size: 12px; color: var(--muted); margin: 8px 0 8px; max-width: 80ch; }
+.fpo .fptools { display: flex; gap: 8px; justify-content: flex-end; margin-bottom: 8px; }
+.fplist { display: flex; flex-direction: column; border-top: 1px solid var(--rule-2); user-select: none; }
+.fprow { display: grid; grid-template-columns: 30px 24px minmax(0, 1fr) auto auto; align-items: center; gap: 8px; padding: 5px 4px 5px 0; border-bottom: 1px solid var(--rule); background: var(--panel); touch-action: none; position: relative; }
+.fprow .fpw { font-family: var(--font-display); font-weight: 700; font-size: 15px; text-align: right; }
+.fprow .grip { color: var(--rule-2); cursor: grab; text-align: center; font-size: 16px; line-height: 1; letter-spacing: -2px; }
+.fprow .grip:active { cursor: grabbing; }
+.fprow .tn { font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fprow .tn small { color: var(--muted); font-weight: 400; margin-left: 8px; }
+.fprow .tn b.wl { font-weight: 700; margin-left: 6px; }
+.fprow .tn b.live, .fprow .tn b.done { margin-left: 8px; }
+.fprow .proj { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.fprow .ud { display: inline-flex; border: 1px solid var(--rule-2); border-radius: 2px; overflow: hidden; }
+.fprow .ud button { border: 0; background: transparent; padding: 2px 7px; font-size: 11px; line-height: 1.4; }
+.fprow .ud button + button { border-left: 1px solid var(--rule-2); }
+.fprow .ud button:hover { background: var(--ink); color: var(--paper); }
+@media (max-width: 640px) {
+  .fprow { grid-template-columns: 32px 22px minmax(0, 1fr) auto; grid-template-rows: auto auto; row-gap: 2px; }
+  .fprow .fpw, .fprow .grip, .fprow .ud { grid-row: 1 / span 2; }
+  .fprow .tn { grid-column: 3; grid-row: 1; white-space: normal; }
+  .fprow .proj { grid-column: 3; grid-row: 2; font-size: 12px; }
+}
+.fprow.dragging { opacity: .35; }
+.fprow.over { box-shadow: inset 0 2px 0 var(--ink); }
+.fprow.over-below { box-shadow: inset 0 -2px 0 var(--ink); }
+.fpo.touched summary .hint { color: var(--accent-ink); }
+.sclist { margin: 6px 0 4px; padding-left: 18px; font-size: 13px; }
+.sclist li { margin: 4px 0; }
+.sclist .sc { background: var(--panel-2); padding: 1px 6px; border-radius: 2px; }
+.sclist em { color: var(--muted); font-style: normal; font-size: 12px; }
+
+/* team view */
+.teamgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 0; padding: 12px 14px 0; border-collapse: collapse; }
+.teamgrid button { border: 1px solid var(--rule-2); margin: 0 -1px -1px 0; background: transparent; padding: 7px 10px; text-align: left; font-weight: 600; line-height: 1.25; transition: background-color .15s, color .15s; }
+.teamgrid button small { display: block; color: var(--muted); font-weight: 400; font-size: 12px; margin-top: 2px; }
+.teamgrid button:hover { background: var(--panel-2); }
+.teamgrid button[aria-pressed="true"] { background: var(--ink); color: var(--paper); border-color: var(--ink); position: relative; z-index: 1; }
+.teamgrid button[aria-pressed="true"] small { color: inherit; opacity: .7; }
+.tgames { padding: 12px 14px 14px; display: flex; flex-direction: column; }
+.tg { display: grid; grid-template-columns: 44px minmax(0, 1fr) auto; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--rule); }
+.tg:first-child { border-top: 1px solid var(--rule-2); }
+.tg .wk { color: var(--muted); font-size: 13px; }
+.tg .opp { font-weight: 600; }
+.tg .opp small { color: var(--muted); font-weight: 400; margin-left: 8px; }
+.tg .wl { display: inline-flex; border: 1px solid var(--rule-2); border-radius: 2px; overflow: hidden; }
+.tg .wl button { border: 0; background: transparent; padding: 4px 12px; font-weight: 700; transition: background-color .15s, color .15s; }
+.tg .wl button + button { border-left: 1px solid var(--rule-2); }
+.tg .wl button:hover { background: var(--panel-2); }
+.tg .wl button.on-w { background: var(--win); color: #fff; }
+.tg .wl button.on-l { background: var(--loss); color: #fff; }
+.tg.final .wl span { padding: 6px 12px; font-weight: 700; }
+@media (max-width: 600px) { .teamgrid, .tgames { padding-left: 12px; padding-right: 12px; } }
+
+/* tables */
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th { text-align: left; font-weight: 600; color: var(--muted); font-size: 11.5px; padding: 6px 8px; border-bottom: 1px solid var(--rule-2); white-space: nowrap; }
+td { padding: 5px 8px; border-bottom: 1px solid var(--rule); vertical-align: middle; }
+th.num, td.num { text-align: right; }
+td.teamcell { font-weight: 600; }
+.adv input { width: 76px; text-align: right; padding: 4px 7px; }
+.adv .hint { font-size: 12px; color: var(--muted); white-space: nowrap; }
+.adv .over { border-color: var(--gold); background: var(--gold-soft); }
+.adv tr.unmatched td { background: var(--loss-soft); }
+.adv { padding: 12px 14px 18px; }
+@media (max-width: 600px) { .adv { padding: 12px; } }
+.adv p.lead { font-size: 13px; color: var(--ink-2); max-width: 80ch; margin-bottom: 12px; }
+.adv .sect { margin-top: 28px; }
+.adv .sect .sh { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 8px; }
+
+/* seeds board */
+.board { display: flex; flex-direction: column; gap: 18px; position: sticky; top: calc(12px + env(safe-area-inset-top, 0px)); }
+@media (max-width: 900px) { .board { position: static; } }
+.seeds { display: flex; flex-direction: column; border-top: 1px solid var(--ink); }
+.seed { display: grid; grid-template-columns: 44px minmax(0, 1fr); border-bottom: 1px solid var(--rule-2); background: var(--panel); }
+.seed .no { font-family: var(--font-display); font-size: 24px; line-height: 1; font-weight: 700; letter-spacing: -0.03em; display: flex; align-items: center; justify-content: center; background: var(--ink); color: var(--paper); }
+.seed.wild .no { background: var(--panel); color: var(--ink); border-right: 1px solid var(--rule-2); }
+.seed .body { padding: 8px 12px 7px; min-width: 0; }
+.seed .nm { font-weight: 700; font-size: 15px; line-height: 1.2; display: flex; justify-content: space-between; gap: 10px; align-items: baseline; flex-wrap: wrap; }
+.seed .nm .pct { font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.seed .meta { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 2px 12px; margin-top: 2px; }
+.seed .tag { font-weight: 700; color: var(--gold-ink); }
+.seed.wild .tag { color: var(--wild); }
+details.how { margin-top: 5px; font-size: 12.5px; }
+details.how summary { cursor: pointer; color: var(--muted); font-weight: 600; list-style: none; }
+details.how summary::-webkit-details-marker { display: none; }
+details.how summary::before { content: '+ '; }
+details.how[open] summary::before { content: '– '; }
+details.how h4 { margin: 8px 0 2px; font-size: 11.5px; font-weight: 700; letter-spacing: .02em; color: var(--ink-2); }
+details.how ol { margin: 4px 0 0; padding-left: 18px; color: var(--ink); }
+details.how li { margin: 3px 0; }
+details.outsideD { margin-top: 14px; }
+details.outsideD > summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 6px 0; border-top: 1px solid var(--ink); border-bottom: 1px solid var(--rule-2); }
+details.outsideD > summary::-webkit-details-marker { display: none; }
+details.outsideD > summary h3::before { content: '+ '; color: var(--muted); }
+details.outsideD[open] > summary h3::before { content: '– '; }
+details.outsideD > summary h3 { white-space: nowrap; }
+details.outsideD > summary .hint { font-size: 12px; color: var(--muted); flex: 1; text-align: right; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+details.outsideD[open] > summary .hint { display: none; }
+.outside .orow { display: grid; grid-template-columns: 44px minmax(0, 1fr); border-bottom: 1px solid var(--rule); }
+.outside .orow .no { font-family: var(--font-display); font-size: 17px; font-weight: 700; color: var(--muted); display: flex; align-items: center; justify-content: center; }
+.outside .orow .body { padding: 7px 12px 6px; min-width: 0; }
+.outside .orow .nm { font-weight: 600; display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.outside .orow .nm .pct { font-size: 12px; font-weight: 600; color: var(--muted); }
+.outside .orow .meta { font-size: 12px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 14px; }
+
+.prob .barcell { position: relative; }
+.prob .barcell i { position: absolute; left: 0; top: 50%; height: 60%; transform: translateY(-50%); background: var(--win-soft); z-index: 0; }
+.prob .barcell b { position: relative; z-index: 1; font-weight: 600; }
+.prob .clinch { color: var(--accent-ink); font-weight: 700; }
+.prob tr:has(.clinch) td.teamcell::after { content: ' ·'; color: var(--accent); }
+.prob .elim { color: var(--loss); font-weight: 700; }
+.std .divname { font-family: var(--font-display); font-size: 14px; font-weight: 700; padding: 12px 8px 4px; }
+.std tr.champ td:first-child::before { content: '★ '; color: var(--gold); }
+
+/* tracker */
+.tracker { padding: 12px 14px 18px; }
+@media (max-width: 600px) { .tracker { padding: 12px; } }
+.tracker .lead { font-size: 13px; color: var(--ink-2); max-width: 80ch; margin-bottom: 10px; }
+.tracker .ctrl { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 14px 0 6px; }
+.tracker h2 { margin-top: 8px; }
+.tracker .legend { display: flex; flex-wrap: wrap; gap: 0; border: 1px solid var(--rule-2); border-radius: 2px; overflow: hidden; margin: 6px 0 10px; }
+.tracker .legend button { border: 0; border-right: 1px solid var(--rule); background: transparent; padding: 4px 9px; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 7px; color: var(--ink-2); transition: background-color .15s; }
+.tracker .legend button:last-child { border-right: 0; }
+.tracker .legend button:hover { background: var(--panel-2); }
+.tracker .legend button .sw { width: 10px; height: 10px; border-radius: 2px; background: var(--rule-2); }
+.tracker .legend button[aria-pressed="true"] { color: var(--ink); background: var(--panel-2); }
+.viz { width: 100%; height: auto; display: block; font-family: var(--font-body); }
+.viz .grid line { stroke: var(--rule); stroke-width: 1; }
+.viz .axis text { fill: var(--muted); font-size: 11px; }
+.viz .ln { fill: none; stroke: var(--rule-2); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.viz .ln.hi { stroke-width: 2.5; }
+.viz .lbl { font-size: 11px; fill: var(--muted); font-weight: 600; paint-order: stroke; stroke: var(--panel); stroke-width: 3px; stroke-linejoin: round; }
+.viz .lbl.hi { fill: var(--ink); }
+.viz .dot { fill: var(--panel); stroke-width: 2; }
+.viz .dot.last { r: 5; stroke-width: 2.5; }
+.viz .lbl.hi { font-weight: 700; }
+.viz .hover line { stroke: var(--ink-2); stroke-width: 1; stroke-dasharray: 2 3; }
+.viztip { position: absolute; pointer-events: none; background: var(--ink); color: var(--paper); font-size: 12px; padding: 6px 9px; border-radius: 2px; white-space: nowrap; z-index: 5; display: none; }
+.vizwrap { position: relative; }
+.tracker table.hist { margin-top: 10px; font-size: 13px; }
+.tracker .progress { font-size: 13px; color: var(--muted); padding: 12px 0; }
+
+/* admin report */
+.report .rtools { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin: 10px 0 14px; }
+.report .rgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+.report .rbox { border: 1px solid var(--rule-2); border-radius: 2px; }
+.report .rbox .rh { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--rule); font-weight: 600; font-size: 13px; }
+.report .rbox textarea { border: 0; border-radius: 0; min-height: 120px; padding: 12px; background: var(--panel); overflow: hidden; }
+
+.notice { padding: 12px 14px; border: 1px solid var(--rule-2); border-radius: 2px; background: var(--panel); }
+.notice.err { border-color: var(--loss); }
+.notice code { background: var(--panel-2); padding: 1px 5px; border-radius: 2px; font-size: 13px; }
+.toast { position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); transform: translateX(-50%); background: var(--ink); color: var(--paper); padding: 10px 18px; border-radius: 2px; font-weight: 600; opacity: 0; pointer-events: none; transition: opacity .2s; }
+.toast.show { opacity: 1; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+.hidden { display: none !important; }
+footer { max-width: 1320px; margin: 0 auto; padding: 0 20px 40px; color: var(--muted); font-size: 12.5px; }
+footer summary { cursor: pointer; font-weight: 600; }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <div>
+      <h1 id="title">Descendants of Travel</h1>
+      <p class="status" id="status">Loading league data…</p>
+    </div>
+    <div class="actions">
+      <div class="seg light" role="group" aria-label="Show names as">
+        <button type="button" id="nMgr" aria-pressed="true">Managers</button>
+        <button type="button" id="nTeam" aria-pressed="false">Team names</button>
+      </div>
+      <button class="btn ghost sm" id="btnTheme" type="button" title="Switch between light and dark">Dark</button>
+      <button class="btn ghost sm" id="btnRefresh" type="button" title="Reload the latest league data">Refresh</button>
+      <button class="btn ghost sm" id="btnUndo" type="button" disabled title="Ctrl+Z">Undo</button>
+      <button class="btn ghost sm" id="btnRedo" type="button" disabled title="Ctrl+Shift+Z">Redo</button>
+      <button class="btn ghost sm" id="btnReset" type="button">Reset to current standings</button>
+      <button class="btn ghost sm" id="btnShare" type="button">Copy link to this scenario</button>
+    </div>
+  </div>
+</header>
+
+<main id="main" class="hidden">
+  <section class="pick">
+    <div class="panel">
+      <div class="ph">
+        <div class="seg" role="group" aria-label="View">
+          <button type="button" id="vWeek" aria-pressed="true">By week</button>
+          <button type="button" id="vTeam" aria-pressed="false">By team</button>
+          <button type="button" id="vScen" aria-pressed="false">Scenarios</button>
+          <button type="button" id="vAdv" aria-pressed="false">Advanced</button>
+          <button type="button" id="vTrack" aria-pressed="false">Tracker</button>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="pickTools">
+          <button class="btn sm" id="btnFav" type="button">Fill unpicked with favourites</button>
+          <button class="btn sm" id="btnClear" type="button">Clear picks</button>
+        </div>
+      </div>
+      <div id="weekView">
+        <div class="tabs" id="weekTabs"></div>
+        <div class="matchups" id="matchups"></div>
+      </div>
+      <div id="teamView" class="hidden">
+        <div class="teamgrid" id="teamGrid"></div>
+        <div class="tgames" id="teamGames"></div>
+      </div>
+      <div id="scenView" class="hidden">
+        <div class="scen">
+          <h2>Clinching scenarios under these picks</h2>
+          <div id="clinchSummary" class="summary"></div>
+          <div style="overflow-x:auto"><table id="clinchTable"></table></div>
+          <p class="small muted" id="clinchNote" style="margin-top:8px;max-width:80ch"></p>
+          <div class="sh" style="margin-top:28px">
+            <h2>What matters for</h2>
+            <select id="scenTeam" aria-label="Team"></select>
+            <div class="seg" role="group" aria-label="Which chances">
+              <button type="button" data-crit="0" aria-pressed="true">Playoffs</button>
+              <button type="button" data-crit="1" aria-pressed="false">Division</button>
+              <button type="button" data-crit="2" aria-pressed="false">Bye</button>
+              <button type="button" data-crit="3" aria-pressed="false">1 seed</button>
+            </div>
+          </div>
+          <p class="small muted" id="matterNow" style="margin:6px 0 8px"></p>
+          <div style="overflow-x:auto"><table id="matterTable"></table></div>
+          <p class="small muted" style="margin-top:8px;max-width:80ch">Open games ranked by how far the result moves the chosen team's chances, from the same simulation as the odds panel. Swing is the gap in percentage points between the two results.</p>
+        </div>
+      </div>
+      <div id="advView" class="hidden">
+        <div class="pb adv">
+          <p class="lead">Points For is the last tiebreaker in this league. Type a number to override a team's total points over its remaining weeks; leave blank to keep the projection, which comes from the team's own scoring in games it is picked to win or lose.</p>
+          <div style="overflow-x:auto"><table id="advTable"></table></div>
+          <div id="mgrSection" class="sect hidden">
+            <div class="sh">
+              <h2>Manager mapping</h2>
+              <button class="btn sm" id="btnCopyMgr" type="button">Copy locked config</button>
+            </div>
+            <p class="small muted" id="mgrNote" style="margin-bottom:10px"></p>
+            <div style="overflow-x:auto"><table id="mgrTable"></table></div>
+          </div>
+          <div id="reportSection" class="sect report hidden">
+            <h2>Weekly report</h2>
+            <p class="small muted" style="max-width:70ch;margin-top:6px">Standings use the tiebreakers; odds are simulated from results to date only, so each week is measured the same way and the change from the week before is like for like. Numbers are fixed per week, so they match on every device.</p>
+            <div class="rtools">
+              <label class="small" for="reportWeek">After week</label>
+              <select id="reportWeek"></select>
+              <span class="small muted" id="reportStatus"></span>
+            </div>
+            <div class="rgrid">
+              <div class="rbox"><div class="rh"><span>Playoff standings</span><button class="btn sm" type="button" data-copy="rep1">Copy</button></div><textarea id="rep1" readonly spellcheck="false"></textarea></div>
+              <div class="rbox"><div class="rh"><span>Playoff probability</span><button class="btn sm" type="button" data-copy="rep2">Copy</button></div><textarea id="rep2" readonly spellcheck="false"></textarea></div>
+              <div class="rbox"><div class="rh"><span>Full odds</span><button class="btn sm" type="button" data-copy="rep3">Copy</button></div><textarea id="rep3" readonly spellcheck="false"></textarea></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="trackView" class="hidden">
+        <div class="tracker">
+          <p class="lead">How each team's position and odds have moved week by week. Every point is computed from results to that week only, by the tiebreakers and the same simulation, so weeks compare like for like. Pick up to six teams to highlight.</p>
+          <div class="legend" id="trackLegend"></div>
+          <div class="progress hidden" id="trackProgress"></div>
+          <h2>Playoff position after each week</h2>
+          <div class="vizwrap"><svg class="viz" id="vizSeed" role="img" aria-label="Playoff position by week"></svg><div class="viztip" id="tipSeed"></div></div>
+          <div class="ctrl">
+            <h2 style="margin:0">Odds after each week</h2>
+            <div class="seg" role="group" aria-label="Which odds">
+              <button type="button" data-metric="playoffs" aria-pressed="true">Playoff berth</button>
+              <button type="button" data-metric="div" aria-pressed="false">Division</button>
+              <button type="button" data-metric="bye" aria-pressed="false">Bye</button>
+              <button type="button" data-metric="one" aria-pressed="false">1 seed</button>
+            </div>
+          </div>
+          <div class="vizwrap"><svg class="viz" id="vizProb" role="img" aria-label="Odds by week"></svg><div class="viztip" id="tipProb"></div></div>
+          <details style="margin-top:16px"><summary class="small" style="cursor:pointer;font-weight:600">Table view</summary><div style="overflow-x:auto"><table class="hist" id="histTable"></table></div></details>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="board">
+    <div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin-bottom:6px">
+        <h2>Seeds in this scenario</h2>
+        <span class="small muted" id="unpicked"></span>
+      </div>
+      <div class="seeds" id="seeds"></div>
+      <details class="outsideD" id="outsideD">
+        <summary><h3>Outside looking in</h3><span class="hint" id="outHint"></span></summary>
+        <div class="outside" id="outlist"></div>
+      </details>
+    </div>
+
+    <div class="panel prob">
+      <div class="ph">
+        <h2>Odds given these picks</h2>
+        <div style="display:flex;gap:8px;align-items:center">
+          <select id="nsims" aria-label="Simulations"><option value="1000">1,000 sims</option><option value="3000">3,000 sims</option><option value="10000" selected>10,000 sims</option></select>
+          <button class="btn sm" id="btnProb" type="button" aria-pressed="true">Live</button>
+        </div>
+      </div>
+      <div class="pb" style="padding-top:8px">
+        <div style="overflow-x:auto"><table id="probTable"></table></div>
+        <p class="small muted" style="margin-top:10px;max-width:70ch" id="probNote"></p>
+        <p class="small muted" style="margin-top:6px;max-width:70ch" id="simNote"></p>
+      </div>
+    </div>
+
+    <div class="panel std">
+      <div class="ph"><h2>Division standings in this scenario</h2></div>
+      <div class="pb" style="padding-top:2px"><div style="overflow-x:auto"><table id="stdTable"></table></div></div>
+    </div>
+  </aside>
+</main>
+<div id="loadBox" style="max-width:1320px;margin:16px auto;padding:0 20px"></div>
+<footer>
+  <details>
+    <summary>Tiebreaker rules this tool applies</summary>
+    <ol style="padding-left:18px;margin-top:8px;max-width:72ch">
+      <li>Division winners take seeds 1–3, and seeds 1–2 get a bye. Division title: record, then head-to-head, then division record, then Points For.</li>
+      <li>Seeds 1–3 (among division winners): record, head-to-head, Points For.</li>
+      <li>Seeds 4–6 (wild cards, chosen one at a time): record, head-to-head, Points For. Positions 7–12 are ranked the same way.</li>
+      <li>Head-to-head only settles a tie if one team has played and beaten every other tied team in every meeting. Otherwise the next tiebreaker applies.</li>
+      <li>Division record keeps the team(s) with the best record among those still tied. If more than one remains, the tiebreak restarts between them (record, head-to-head, division record, Points For).</li>
+      <li>Points For: the highest total takes it, however many teams are still tied.</li>
+    </ol>
+  </details>
+</footer>
+<div class="toast" id="toast" role="status"></div>
+
+<script id="engine-src">
+/* Playoff engine: standings, league-specific tiebreakers, projections, Monte Carlo.
+   Pure functions over plain data so the same code runs in node tests and the browser. */
+(function (root) {
+  'use strict';
+
+  const EPS = 1e-9;
+
+  // ---------- data shapes ----------
+  // league = {
+  //   teams: [{id, name, owner, div}],          index = team index
+  //   divs: {divNo: divName},
+  //   weeks: [{week, locked, games:[{a,b,pa,pb}], scores:{idx:points}}]
+  //   nTeams
+  // }
+  // picks: Map/obj key `${week}:${gameIdx}` -> 0|1|2 (1 = a wins, 2 = b wins)
+  // overrides: { fp: {idx: totalRemainingFP}, pf: {idx: totalRemainingPF} }
+
+  function pct(w, l, t) {
+    const g = w + l + t;
+    return g ? (w + 0.5 * t) / g : 0;
+  }
+
+  function fmtRec(w, l, t) {
+    return t ? `${w}-${l}-${t}` : `${w}-${l}`;
+  }
+
+  function emptyState(n) {
+    const z = () => new Array(n).fill(0);
+    const m = () => Array.from({ length: n }, () => new Array(n).fill(0));
+    return { n, w: z(), l: z(), t: z(), dw: z(), dl: z(), dt: z(), fp: z(), pf: z(), hw: m(), ht: m() };
+  }
+
+  function cloneState(s) {
+    return {
+      n: s.n, w: s.w.slice(), l: s.l.slice(), t: s.t.slice(), dw: s.dw.slice(), dl: s.dl.slice(), dt: s.dt.slice(),
+      fp: s.fp.slice(), pf: s.pf.slice(), hw: s.hw.map(r => r.slice()), ht: s.ht.map(r => r.slice()),
+    };
+  }
+
+  function addResult(s, league, a, b, res) {
+    // res: 1 a wins, 2 b wins, 0 tie
+    const sameDiv = league.teams[a].div === league.teams[b].div;
+    if (res === 1) { s.w[a]++; s.l[b]++; s.hw[a][b]++; if (sameDiv) { s.dw[a]++; s.dl[b]++; } }
+    else if (res === 2) { s.w[b]++; s.l[a]++; s.hw[b][a]++; if (sameDiv) { s.dw[b]++; s.dl[a]++; } }
+    else { s.t[a]++; s.t[b]++; s.ht[a][b]++; s.ht[b][a]++; if (sameDiv) { s.dt[a]++; s.dt[b]++; } }
+  }
+
+  function removeResult(s, league, a, b, res) {
+    const sameDiv = league.teams[a].div === league.teams[b].div;
+    if (res === 1) { s.w[a]--; s.l[b]--; s.hw[a][b]--; if (sameDiv) { s.dw[a]--; s.dl[b]--; } }
+    else if (res === 2) { s.w[b]--; s.l[a]--; s.hw[b][a]--; if (sameDiv) { s.dw[b]--; s.dl[a]--; } }
+    else { s.t[a]--; s.t[b]--; s.ht[a][b]--; s.ht[b][a]--; if (sameDiv) { s.dt[a]--; s.dt[b]--; } }
+  }
+
+  // Fair Play wins for one week given everyone's scores: 1 per team you outscored, 0.5 per tie.
+  function allPlayWins(scores, idx) {
+    let wins = 0;
+    const mine = scores[idx];
+    for (let j = 0; j < scores.length; j++) {
+      if (j === idx) continue;
+      if (mine > scores[j] + EPS) wins += 1;
+      else if (Math.abs(mine - scores[j]) <= EPS) wins += 0.5;
+    }
+    return wins;
+  }
+
+  // ---------- base (locked) state + per-team history for projections ----------
+  function buildBase(league) {
+    const n = league.nTeams;
+    const s = emptyState(n);
+    const hist = Array.from({ length: n }, () => ({ fpWon: [], fpLost: [], pfWon: [], pfLost: [], pts: [] }));
+    let lockedWeeks = 0;
+    for (const wk of league.weeks) {
+      if (!wk.locked) continue;
+      lockedWeeks++;
+      const scores = new Array(n).fill(0);
+      for (let i = 0; i < n; i++) scores[i] = wk.scores[i] ?? 0;
+      const fpw = new Array(n);
+      for (let i = 0; i < n; i++) { fpw[i] = allPlayWins(scores, i); s.fp[i] += fpw[i]; s.pf[i] += scores[i]; hist[i].pts.push(scores[i]); }
+      for (const g of wk.games) {
+        const res = g.pa > g.pb + EPS ? 1 : g.pb > g.pa + EPS ? 2 : 0;
+        addResult(s, league, g.a, g.b, res);
+        const win = res === 1 ? g.a : res === 2 ? g.b : -1;
+        const lose = res === 1 ? g.b : res === 2 ? g.a : -1;
+        if (win >= 0) { hist[win].fpWon.push(fpw[win]); hist[win].pfWon.push(scores[win]); hist[lose].fpLost.push(fpw[lose]); hist[lose].pfLost.push(scores[lose]); }
+      }
+    }
+    // league-wide conditional means (fallbacks)
+    const flat = k => hist.flatMap(h => h[k]);
+    const mean = a => a.length ? a.reduce((x, y) => x + y, 0) / a.length : NaN;
+    const allPts = flat('pts');
+    const lg = {
+      fpWon: mean(flat('fpWon')), fpLost: mean(flat('fpLost')),
+      pfWon: mean(flat('pfWon')), pfLost: mean(flat('pfLost')),
+      pts: mean(allPts),
+    };
+    if (isNaN(lg.fpWon)) { lg.fpWon = (n - 1) * 0.68; lg.fpLost = (n - 1) * 0.32; }
+    if (isNaN(lg.pfWon)) { lg.pfWon = 125; lg.pfLost = 100; lg.pts = 112; }
+    // per-team model: mean & sd of points, conditional means shrunk toward league (k pseudo-games)
+    const K = 3;
+    const shrink = (arr, prior) => (arr.reduce((x, y) => x + y, 0) + K * prior) / (arr.length + K);
+    const model = hist.map(h => {
+      const mu = h.pts.length ? mean(h.pts) : lg.pts;
+      return {
+        mu,
+        n: h.pts.length,
+        fpWon: shrink(h.fpWon, lg.fpWon), fpLost: shrink(h.fpLost, lg.fpLost),
+        pfWon: shrink(h.pfWon, lg.pfWon), pfLost: shrink(h.pfLost, lg.pfLost),
+      };
+    });
+    // pooled residual sd
+    let ss = 0, cnt = 0;
+    hist.forEach((h, i) => h.pts.forEach(p => { ss += (p - model[i].mu) ** 2; cnt++; }));
+    const sd = cnt > 2 ? Math.sqrt(ss / (cnt - 1)) : 25;
+    return { state: s, model, sd, lockedWeeks, league: lg };
+  }
+
+  // P(a beats b). With a week model (from Sleeper projections, possibly blended with live scores) use its
+  // per-team mean and spread; otherwise fall back to the season scoring-average model.
+  function winProb(base, a, b, model) {
+    let d, s;
+    if (model) { d = model.mu[a] - model.mu[b]; s = Math.sqrt(model.sd[a] ** 2 + model.sd[b] ** 2); }
+    else { d = base.model[a].mu - base.model[b].mu; s = Math.SQRT2 * base.sd; }
+    if (s < 1e-9) return d > 0 ? 1 : d < 0 ? 0 : 0.5;
+    return 0.5 * (1 + erf(d / (Math.SQRT2 * s)));
+  }
+  function erf(x) { // Abramowitz-Stegun 7.1.26
+    const sgn = x < 0 ? -1 : 1; x = Math.abs(x);
+    const t = 1 / (1 + 0.3275911 * x);
+    const y = 1 - (((((1.061405429 * t - 1.453152027) * t) + 1.421413741) * t - 0.284496736) * t + 0.254829592) * t * Math.exp(-x * x);
+    return sgn * y;
+  }
+
+  // ---------- scenario state (locked + picked games, projections for FP/PF) ----------
+  function remainingGames(league) {
+    const out = [];
+    league.weeks.forEach(wk => { if (!wk.locked) wk.games.forEach((g, gi) => out.push({ key: `${wk.week}:${gi}`, week: wk.week, gi, a: g.a, b: g.b })); });
+    return out;
+  }
+
+  function teamRemaining(league, idx) {
+    return remainingGames(league).filter(g => g.a === idx || g.b === idx);
+  }
+
+  function projectedFP(base, idx, won) { return won ? base.model[idx].fpWon : base.model[idx].fpLost; }
+  function projectedPF(base, idx, won) { return won ? base.model[idx].pfWon : base.model[idx].pfLost; }
+
+  // ---------- fair play orders ----------
+  // A week's Fair Play order is a full ranking of the teams by that week's points: position 0 = (n-1) wins,
+  // last = 0. The default follows projected points (live-blended for the current week), then each picked
+  // game is reconciled: if the loser sits above the winner, both move to the midpoint of their positions,
+  // winner first. Games are disjoint pairs, so one pass settles every pick.
+  function defaultFpOrder(league, base, models, week, picks) {
+    const n = league.nTeams;
+    const m = models && models[week];
+    const mu = i => m ? m.mu[i] : base.model[i].mu;
+    const order = league.teams.map((_, i) => i).sort((a, b) => mu(b) - mu(a) || a - b);
+    return reconcileOrder(league, week, order, picks);
+  }
+  function reconcileOrder(league, week, order, picks) {
+    const wk = league.weeks.find(w => w.week === week); if (!wk) return order;
+    const o = order.slice();
+    wk.games.forEach((g, gi) => {
+      const p = picks[`${week}:${gi}`] | 0; if (!p) return;
+      const win = p === 1 ? g.a : g.b, lose = p === 1 ? g.b : g.a;
+      const iw = o.indexOf(win), il = o.indexOf(lose);
+      if (iw < 0 || il < 0 || iw < il) return;
+      const mid = Math.floor((iw + il) / 2);
+      const rest = o.filter(x => x !== win && x !== lose);
+      rest.splice(Math.min(mid, rest.length), 0, win, lose);
+      o.length = 0; o.push(...rest);
+    });
+    return o;
+  }
+  // {week: order} for every unlocked week: the user's order where set (reconciled with picks), else the default.
+  function effectiveFpOrders(league, base, models, picks, fpOrders) {
+    const out = {};
+    for (const wk of league.weeks) {
+      if (wk.locked) continue;
+      const user = fpOrders && fpOrders[wk.week];
+      out[wk.week] = user && user.length === league.nTeams ? reconcileOrder(league, wk.week, user, picks) : defaultFpOrder(league, base, models, wk.week, picks);
+    }
+    return out;
+  }
+  function fpFromOrder(order, n) { const fp = new Array(n).fill(0); order.forEach((t, k) => { fp[t] = n - 1 - k; }); return fp; }
+  // Picks implied by an order: the higher team wins each game that week.
+  function picksFromOrder(league, week, order) {
+    const wk = league.weeks.find(w => w.week === week); const out = {}; if (!wk) return out;
+    wk.games.forEach((g, gi) => { out[`${week}:${gi}`] = order.indexOf(g.a) < order.indexOf(g.b) ? 1 : 2; });
+    return out;
+  }
+
+  function buildScenario(league, base, picks, overrides, orders) {
+    const s = cloneState(base.state);
+    const n = league.nTeams;
+    const projFP = new Array(n).fill(0), projPF = new Array(n).fill(0);
+    const picked = new Array(n).fill(0), rem = new Array(n).fill(0);
+    let unpicked = 0;
+    for (const g of remainingGames(league)) {
+      rem[g.a]++; rem[g.b]++;
+      const p = picks[g.key] | 0;
+      if (!p) { unpicked++; continue; }
+      picked[g.a]++; picked[g.b]++;
+      addResult(s, league, g.a, g.b, p);
+      const win = p === 1 ? g.a : g.b, lose = p === 1 ? g.b : g.a;
+      const ord = orders && orders[g.week];
+      if (ord) { projFP[win] += n - 1 - ord.indexOf(win); projFP[lose] += n - 1 - ord.indexOf(lose); }
+      else { projFP[win] += projectedFP(base, win, true); projFP[lose] += projectedFP(base, lose, false); }
+      projPF[win] += projectedPF(base, win, true); projPF[lose] += projectedPF(base, lose, false);
+    }
+    const ov = overrides || {};
+    for (let i = 0; i < n; i++) {
+      const frac = rem[i] ? picked[i] / rem[i] : 0;
+      const fpAdd = ov.fp && ov.fp[i] != null && ov.fp[i] !== '' ? Number(ov.fp[i]) * frac : projFP[i];
+      const pfAdd = ov.pf && ov.pf[i] != null && ov.pf[i] !== '' ? Number(ov.pf[i]) * frac : projPF[i];
+      s.fp[i] += fpAdd; s.pf[i] += pfAdd;
+    }
+    return { state: s, unpicked, projFP, projPF, picked, rem };
+  }
+
+  // ---------- tiebreakers ----------
+  // steps: array of 'record' | 'h2h' | 'divrec' | 'fairplay' | 'pf'
+  // 'h2hsweep': a team that beat every other tied team in every meeting takes it; otherwise move on (no elimination of a swept team)
+  const STEPS = {
+    division: ['record', 'h2hsweep', 'divrec', 'pf'],
+    top3: ['record', 'h2hsweep', 'pf'],
+    wildcard: ['record', 'h2hsweep', 'pf'],
+  };
+
+  function resolveSeed(cands, s, steps, league, labelFor) {
+    const name = i => labelFor ? labelFor(i) : league.teams[i].name;
+    const log = [];
+    let S = cands.slice();
+    if (S.length === 1) return { winner: S[0], log };
+    let guard = 0;
+    outer: while (guard++ < 50) {
+      for (const step of steps) {
+        if (S.length === 1) return { winner: S[0], log };
+        if (step === 'record') {
+          const best = Math.max(...S.map(i => pct(s.w[i], s.l[i], s.t[i])));
+          const keep = S.filter(i => Math.abs(pct(s.w[i], s.l[i], s.t[i]) - best) < EPS);
+          if (keep.length < S.length) {
+            log.push(`Record: ${keep.map(i => `${name(i)} (${fmtRec(s.w[i], s.l[i], s.t[i])})`).join(', ')} ahead of ${S.filter(i => !keep.includes(i)).map(name).join(', ')}`);
+          } else if (S.length > 1) {
+            log.push(`Record: ${S.map(name).join(', ')} tied at ${fmtRec(s.w[S[0]], s.l[S[0]], s.t[S[0]])}`);
+          }
+          S = keep;
+          if (S.length === 1) return { winner: S[0], log };
+        } else if (step === 'h2hsweep') {
+          let sweeper = -1; const detail = [];
+          for (const i of S) {
+            let sw = true;
+            for (const j of S) { if (i === j) continue; const p = s.hw[i][j] + s.hw[j][i] + s.ht[i][j]; if (p === 0 || s.hw[i][j] !== p) sw = false; }
+            if (sw) sweeper = i;
+          }
+          for (let x = 0; x < S.length; x++) for (let y = x + 1; y < S.length; y++) { const i = S[x], j = S[y]; const p = s.hw[i][j] + s.hw[j][i] + s.ht[i][j]; detail.push(p ? `${name(i)} ${fmtRec(s.hw[i][j], s.hw[j][i], s.ht[i][j])} ${name(j)}` : `${name(i)} v ${name(j)} not played`); }
+          if (sweeper >= 0) { log.push(`Head-to-head: ${name(sweeper)} beat every other tied team in every meeting (${detail.join('; ')})`); return { winner: sweeper, log }; }
+          log.push(`Head-to-head: no team beat all the others in every meeting (${detail.join('; ')}), move on`);
+        } else if (step === 'h2h') {
+          let sweeper = -1, swept = -1;
+          const detail = [];
+          for (const i of S) {
+            let sw = true, sb = true;
+            for (const j of S) {
+              if (i === j) continue;
+              const p = s.hw[i][j] + s.hw[j][i] + s.ht[i][j];
+              if (p === 0) { sw = false; sb = false; }
+              else { if (s.hw[i][j] !== p) sw = false; if (s.hw[j][i] !== p) sb = false; }
+            }
+            if (sw) sweeper = i;
+            if (sb) swept = i;
+          }
+          for (let x = 0; x < S.length; x++) for (let y = x + 1; y < S.length; y++) {
+            const i = S[x], j = S[y];
+            const p = s.hw[i][j] + s.hw[j][i] + s.ht[i][j];
+            detail.push(p ? `${name(i)} ${fmtRec(s.hw[i][j], s.hw[j][i], s.ht[i][j])} ${name(j)}` : `${name(i)} v ${name(j)} not played`);
+          }
+          if (sweeper >= 0) { log.push(`Head-to-head: ${name(sweeper)} beat every other tied team in every meeting (${detail.join('; ')})`); return { winner: sweeper, log }; }
+          if (swept >= 0) { log.push(`Head-to-head: ${name(swept)} lost every meeting to the other tied teams, eliminated (${detail.join('; ')})`); S = S.filter(i => i !== swept); continue outer; }
+          log.push(`Head-to-head: no sweep either way (${detail.join('; ')}), move on`);
+        } else if (step === 'divrec') {
+          const val = i => pct(s.dw[i], s.dl[i], s.dt[i]);
+          const show = i => fmtRec(s.dw[i], s.dl[i], s.dt[i]);
+          const hi = Math.max(...S.map(val));
+          const keep = S.filter(i => Math.abs(val(i) - hi) < EPS);
+          if (keep.length === S.length) { log.push(`Division record: all tied (${show(S[0])}), move on`); continue; }
+          log.push(`Division record: ${S.filter(i => !keep.includes(i)).map(name).join(', ')} eliminated, not on the best record (${S.map(i => `${name(i)} ${show(i)}`).join(', ')})`);
+          S = keep;
+          if (S.length === 1) return { winner: S[0], log };
+          continue outer;
+        } else if (step === 'fairplay') {
+          const val = i => s.fp[i];
+          const show = i => s.fp[i].toFixed(1);
+          const lo = Math.min(...S.map(val)), hi = Math.max(...S.map(val));
+          if (hi - lo < EPS) { log.push(`Fair Play: all tied (${show(S[0])}), move on`); continue; }
+          const lowest = S.filter(i => Math.abs(val(i) - lo) < EPS);
+          let drop = lowest[0];
+          if (lowest.length > 1) { drop = lowest.reduce((a, b) => s.pf[b] < s.pf[a] - EPS ? b : a); }
+          log.push(`Fair Play: ${name(drop)} eliminated with the lowest (${S.map(i => `${name(i)} ${show(i)}`).join(', ')})${lowest.length > 1 ? `; ${lowest.map(name).join(' and ')} level, lowest Points For goes (${lowest.map(i => `${name(i)} ${s.pf[i].toFixed(1)}`).join(', ')})` : ''}`);
+          S = S.filter(i => i !== drop);
+          if (S.length === 1) return { winner: S[0], log };
+          continue outer;
+        } else if (step === 'pf') {
+          const best = Math.max(...S.map(i => s.pf[i]));
+          const top = S.filter(i => Math.abs(s.pf[i] - best) < EPS);
+          log.push(`Points for: ${S.map(i => `${name(i)} ${s.pf[i].toFixed(2)}`).join(', ')}${top.length > 1 ? ' (exact tie, first listed taken)' : ''}`);
+          return { winner: top[0], log, coinflip: top.length > 1 };
+        }
+      }
+      // all steps exhausted without a winner (cannot happen since pf decides); fall back
+      return { winner: S[0], log: log.concat(['Fallback: first remaining team']) };
+    }
+    return { winner: S[0], log };
+  }
+
+  function seedPlayoffs(league, s, opts) {
+    const quiet = opts && opts.quiet;
+    const name = (opts && opts.labelFor) || (i => league.teams[i].name);
+    const divs = {};
+    league.teams.forEach((t, i) => { (divs[t.div] = divs[t.div] || []).push(i); });
+    const divNos = Object.keys(divs).map(Number).sort((a, b) => a - b);
+    const divWinners = {};
+    for (const d of divNos) {
+      const r = resolveSeed(divs[d], s, STEPS.division, league, name);
+      divWinners[d] = quiet ? { winner: r.winner } : r;
+    }
+    const seeds = [];
+    // seeds 1-3 among division winners, one at a time
+    let pool = divNos.map(d => divWinners[d].winner);
+    for (let k = 1; k <= 3 && pool.length; k++) {
+      const r = resolveSeed(pool, s, STEPS.top3, league, name);
+      seeds.push({ seed: k, team: r.winner, type: 'div', log: quiet ? [] : r.log });
+      pool = pool.filter(i => i !== r.winner);
+    }
+    // wild cards 4-6
+    const divSet = new Set(Object.values(divWinners).map(x => x.winner));
+    pool = league.teams.map((_, i) => i).filter(i => !divSet.has(i));
+    const nWild = (opts && opts.wildcards) || 3;
+    for (let k = 4; k < 4 + nWild && pool.length; k++) {
+      const r = resolveSeed(pool, s, STEPS.wildcard, league, name);
+      seeds.push({ seed: k, team: r.winner, type: 'wild', log: quiet ? [] : r.log });
+      pool = pool.filter(i => i !== r.winner);
+    }
+    // positions 7-12: the teams that miss out, ranked one at a time by the same wild-card tiebreakers
+    const out = [], outLog = [];
+    let pos = 4 + nWild;
+    while (pool.length) {
+      const r = resolveSeed(pool, s, STEPS.wildcard, league, name);
+      out.push(r.winner); outLog.push({ pos: pos++, team: r.winner, log: quiet ? [] : r.log });
+      pool = pool.filter(i => i !== r.winner);
+    }
+    return { divWinners, seeds, out, outLog };
+  }
+
+  // ---------- Monte Carlo ----------
+  // Gaussian via Box-Muller with cache; `rng` is Math.random or a seeded generator for reproducible runs
+  let spare = null, rng = Math.random;
+  function mulberry32(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) >>> 0; let t = a; t = Math.imul(t ^ (t >>> 15), t | 1); t ^= t + Math.imul(t ^ (t >>> 7), t | 61); return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+  function gauss() {
+    if (spare !== null) { const v = spare; spare = null; return v; }
+    let u, v, r;
+    do { u = rng() * 2 - 1; v = rng() * 2 - 1; r = u * u + v * v; } while (r === 0 || r >= 1);
+    const m = Math.sqrt(-2 * Math.log(r) / r);
+    spare = v * m; return u * m;
+  }
+
+  // opts: { fpFixed: {week: fp[]} for weeks whose Fair Play order the user set, seed: integer for a reproducible run }
+  function simulate(league, base, picks, overrides, nSims, wildcards, models, opts) {
+    const n = league.nTeams;
+    const fpFixed = (opts && opts.fpFixed) || {};
+    // leverage: for every unpicked game, how each team's chances differ between the two results
+    const lev = opts && opts.leverage ? remainingGames(league).filter(g => !(picks[g.key] | 0)).map(g => ({ key: g.key, week: g.week, a: g.a, b: g.b, na: 0, nb: 0, ca: new Float64Array(n * 4), cb: new Float64Array(n * 4) })) : null;
+    const levIdx = {}; if (lev) lev.forEach((g, k) => { levIdx[g.key] = k; });
+    const won = lev ? new Uint8Array(lev.length) : null;
+    // per week: which combination of that week's open results happened, and who met each criterion
+    const wkT = lev ? {} : null, wkMask = {};
+    if (lev) league.weeks.forEach(wk => { if (wk.locked) return; const open = wk.games.map((g, gi) => gi).filter(gi => !(picks[`${wk.week}:${gi}`] | 0)); if (open.length && open.length <= 8) wkT[wk.week] = { open, n: new Uint32Array(1 << open.length), hold: new Uint32Array((1 << open.length) * n * 4) }; });
+    const crit = lev ? new Uint8Array(n * 4) : null;
+    rng = opts && opts.seed != null ? mulberry32(opts.seed) : Math.random; spare = null;
+    const tally = Array.from({ length: n }, () => ({ playoffs: 0, div: 0, seeds: new Array(7).fill(0), seedSum: 0, finishSum: 0 }));
+    const future = league.weeks.filter(w => !w.locked);
+    const ov = overrides || {};
+    const sd = base.sd;
+    const scores = new Array(n);
+    for (let sim = 0; sim < nSims; sim++) {
+      const s = cloneState(base.state);
+      const fpAdd = new Array(n).fill(0), pfAdd = new Array(n).fill(0);
+      for (const wk of future) {
+        const m = models && models[wk.week];
+        if (m) for (let i = 0; i < n; i++) scores[i] = m.mu[i] + m.sd[i] * gauss();
+        else for (let i = 0; i < n; i++) scores[i] = base.model[i].mu + sd * gauss();
+        wk.games.forEach((g, gi) => {
+          const p = picks[`${wk.week}:${gi}`] | 0;
+          if (p === 1 && scores[g.a] < scores[g.b]) { const x = scores[g.a]; scores[g.a] = scores[g.b]; scores[g.b] = x; }
+          else if (p === 2 && scores[g.b] < scores[g.a]) { const x = scores[g.a]; scores[g.a] = scores[g.b]; scores[g.b] = x; }
+          const res = scores[g.a] > scores[g.b] ? 1 : 2;
+          addResult(s, league, g.a, g.b, res);
+          if (lev && !p) won[levIdx[`${wk.week}:${gi}`]] = res;
+        });
+        if (lev && wkT[wk.week]) { let msk = 0; wkT[wk.week].open.forEach((gi, b) => { if (won[levIdx[`${wk.week}:${gi}`]] === 1) msk |= 1 << b; }); wkMask[wk.week] = msk; }
+        const fixed = fpFixed[wk.week];
+        if (fixed) for (let i = 0; i < n; i++) { fpAdd[i] += fixed[i]; pfAdd[i] += scores[i]; }
+        else for (let i = 0; i < n; i++) { fpAdd[i] += allPlayWins(scores, i); pfAdd[i] += scores[i]; }
+      }
+      for (let i = 0; i < n; i++) {
+        s.fp[i] += ov.fp && ov.fp[i] != null && ov.fp[i] !== '' ? Number(ov.fp[i]) : fpAdd[i];
+        s.pf[i] += ov.pf && ov.pf[i] != null && ov.pf[i] !== '' ? Number(ov.pf[i]) : pfAdd[i];
+      }
+      const r = seedPlayoffs(league, s, { quiet: true, wildcards });
+      if (lev) crit.fill(0);
+      for (const d in r.divWinners) { const w = r.divWinners[d].winner; tally[w].div++; if (lev) crit[w * 4 + 1] = 1; }
+      for (const sd of r.seeds) { const t = tally[sd.team]; t.playoffs++; t.seeds[sd.seed]++; t.seedSum += sd.seed; t.finishSum += sd.seed; if (lev) { crit[sd.team * 4] = 1; if (sd.seed <= 2) crit[sd.team * 4 + 2] = 1; if (sd.seed === 1) crit[sd.team * 4 + 3] = 1; } }
+      if (lev) for (let k = 0; k < lev.length; k++) { const g = lev[k]; if (won[k] === 1) { g.na++; for (let q = 0; q < crit.length; q++) g.ca[q] += crit[q]; } else { g.nb++; for (let q = 0; q < crit.length; q++) g.cb[q] += crit[q]; } }
+      if (lev) for (const w in wkT) { const t = wkT[w], msk = wkMask[w]; t.n[msk]++; const off = msk * n * 4; for (let q = 0; q < crit.length; q++) t.hold[off + q] += crit[q]; }
+      r.out.forEach((team, k) => { tally[team].finishSum += r.seeds.length + 1 + k; }); // 7th-12th by the wild-card tiebreakers
+    }
+    rng = Math.random; spare = null;
+    const leverage = lev ? lev.map(g => ({ key: g.key, week: g.week, a: g.a, b: g.b, na: g.na, nb: g.nb,
+      // pa[i][c], pb[i][c]: team i's chance of criterion c (0 playoffs, 1 division, 2 bye, 3 one seed) if a / b wins
+      pa: Array.from({ length: n }, (_, i) => [0, 1, 2, 3].map(c => g.na ? g.ca[i * 4 + c] / g.na : 0)),
+      pb: Array.from({ length: n }, (_, i) => [0, 1, 2, 3].map(c => g.nb ? g.cb[i * 4 + c] / g.nb : 0)) })) : null;
+    const out = tally.map(t => ({
+      playoffs: t.playoffs / nSims, div: t.div / nSims,
+      seeds: t.seeds.map(x => x / nSims),
+      bye: (t.seeds[1] + t.seeds[2]) / nSims,
+      avgSeed: t.playoffs ? t.seedSum / t.playoffs : null, // average seed when making the playoffs
+      avgFinish: t.finishSum / nSims,                      // average finishing position 1-12 across all simulations
+    }));
+    if (leverage) { out.leverage = leverage; out.weekTally = {}; for (const w in wkT) out.weekTally[w] = { open: wkT[w].open, n: Array.from(wkT[w].n), hold: Array.from(wkT[w].hold) }; }
+    return out;
+  }
+
+  // ---------- exact clinch and elimination ----------
+  // Criteria: 0 playoffs, 1 division, 2 bye (seed 1-2), 3 one seed.
+  // A team has CLINCHED a criterion when it holds in every possible finish: every result of every unpicked game,
+  // and every way the Fair Play / Points For tiebreakers could fall (future Fair Play is only known to lie between
+  // 0 and n-1 per week; Points For is unbounded). It is ELIMINATED when the criterion holds in none.
+  // The team's own remaining games are fixed to losses for the clinch check and wins for the elimination check,
+  // since a win is never worse for the team itself. Record, head-to-head and division-record steps are exact;
+  // at a Fair Play or Points For step every team that could come out lowest/highest is tried in turn.
+  const CRIT = { playoffs: 0, division: 1, bye: 2, one: 3 };
+
+  // Run the seeding with branching at Fair Play / Points For steps; visit(result) returns false to stop early.
+  function seedBranches(league, s, ctx, visit) {
+    const n = league.nTeams;
+    const divs = {}; league.teams.forEach((t, i) => { (divs[t.div] = divs[t.div] || []).push(i); });
+    const divNos = Object.keys(divs).map(Number).sort((a, b) => a - b);
+    const fpCanBeLowest = (S, i) => S.every(j => j === i || ctx.fpMin[i] <= ctx.fpMax[j] + EPS);
+    const pfCanBeHighest = (S, i) => S.every(j => j === i || ctx.pfMax[i] >= ctx.pfMin[j] - EPS);
+    // resolve one seed from cands with steps; k(winner) continues; returns false to abort
+    function resolve(cands, steps, k) {
+      let S = cands.slice();
+      if (S.length === 1) return k(S[0]);
+      for (let guard = 0; guard < 40; guard++) {
+        let restarted = false;
+        for (const step of steps) {
+          if (S.length === 1) return k(S[0]);
+          if (step === 'record') {
+            const best = Math.max(...S.map(i => pct(s.w[i], s.l[i], s.t[i])));
+            S = S.filter(i => Math.abs(pct(s.w[i], s.l[i], s.t[i]) - best) < EPS);
+          } else if (step === 'h2hsweep') {
+            let sweeper = -1;
+            for (const i of S) { let sw = true; for (const j of S) { if (i === j) continue; const p = s.hw[i][j] + s.hw[j][i] + s.ht[i][j]; if (p === 0 || s.hw[i][j] !== p) sw = false; } if (sw) sweeper = i; }
+            if (sweeper >= 0) return k(sweeper);
+          } else if (step === 'h2h') {
+            let sweeper = -1, swept = -1;
+            for (const i of S) {
+              let sw = true, sb = true;
+              for (const j of S) { if (i === j) continue; const p = s.hw[i][j] + s.hw[j][i] + s.ht[i][j]; if (p === 0) { sw = false; sb = false; } else { if (s.hw[i][j] !== p) sw = false; if (s.hw[j][i] !== p) sb = false; } }
+              if (sw) sweeper = i; if (sb) swept = i;
+            }
+            if (sweeper >= 0) return k(sweeper);
+            if (swept >= 0) { S = S.filter(i => i !== swept); restarted = true; break; }
+          } else if (step === 'divrec') {
+            const hi = Math.max(...S.map(i => pct(s.dw[i], s.dl[i], s.dt[i])));
+            const keep = S.filter(i => Math.abs(pct(s.dw[i], s.dl[i], s.dt[i]) - hi) < EPS);
+            if (keep.length < S.length) { S = keep; restarted = true; break; }
+          } else if (step === 'fairplay') {
+            const cands2 = S.filter(i => fpCanBeLowest(S, i));
+            if (cands2.length === S.length && S.every(i => ctx.fpMin[i] === ctx.fpMax[i]) && Math.max(...S.map(i => ctx.fpMin[i])) - Math.min(...S.map(i => ctx.fpMin[i])) < EPS) continue; // exactly level, move on
+            for (const drop of cands2) { if (!resolve(S.filter(i => i !== drop), steps, k)) return false; }
+            return true;
+          } else if (step === 'pf') {
+            for (const w of S) { if (pfCanBeHighest(S, w) && !k(w)) return false; }
+            return true;
+          }
+        }
+        if (!restarted) return k(S[0]);
+      }
+      return k(S[0]);
+    }
+    const res = { div: {}, seeds: [] };
+    const doDiv = (d) => {
+      if (d >= divNos.length) return doTop(divNos.map(x => res.div[x]), 1);
+      return resolve(divs[divNos[d]], STEPS.division, w => { res.div[divNos[d]] = w; return doDiv(d + 1); });
+    };
+    const doTop = (pool, seed) => {
+      if (!pool.length) { const winners = new Set(Object.values(res.div)); return doWild(league.teams.map((_, i) => i).filter(i => !winners.has(i)), 4); }
+      return resolve(pool, STEPS.top3, w => { res.seeds[seed] = w; return doTop(pool.filter(i => i !== w), seed + 1); });
+    };
+    const doWild = (pool, seed) => {
+      if (seed > 6 || !pool.length) return visit(res);
+      return resolve(pool, STEPS.wildcard, w => { res.seeds[seed] = w; return doWild(pool.filter(i => i !== w), seed + 1); });
+    };
+    return doDiv(0);
+  }
+  function critHolds(res, T, c, league) {
+    if (c === 1) return res.div[league.teams[T].div] === T;
+    if (c === 0) return res.seeds.indexOf(T) >= 1;
+    if (c === 2) return res.seeds[1] === T || res.seeds[2] === T;
+    return res.seeds[1] === T;
+  }
+
+  // Bounds on wins only: fast, sound sufficient conditions used to prune the search.
+  function winsBounds(league, s, free, T) {
+    const n = league.nTeams; const w = new Array(n), mx = new Array(n);
+    for (let i = 0; i < n; i++) { w[i] = s.w[i] + 0.5 * s.t[i]; mx[i] = w[i]; }
+    for (const g of free) { mx[g.a] += 1; mx[g.b] += 1; }
+    return { w, mx };
+  }
+  function surelyHolds(league, s, free, T, c) {   // criterion certain whatever happens in `free`
+    const { w, mx } = winsBounds(league, s, free, T);
+    const myDiv = league.teams[T].div;
+    const divOk = league.teams.every((t, i) => i === T || t.div !== myDiv || w[T] > mx[i]);
+    if (c === 1) return divOk;
+    // A = other teams that could still finish with at least T's wins, grouped by division
+    const perDiv = {}; league.teams.forEach((t, i) => { if (i !== T && mx[i] >= w[T]) perDiv[t.div] = (perDiv[t.div] || 0) + 1; });
+    if (c === 0) {
+      // each division's winner leaves the wild-card pool, so at most |A∩D|-1 of a division's A-teams can sit above T in it
+      if (divOk) return true;
+      let poolAhead = 0; for (const d in perDiv) poolAhead += Math.max(0, perDiv[d] - 1);
+      return poolAhead <= 2;
+    }
+    // bye / one seed: only another division's winner can outrank T, and only if that division has an A-team
+    const divsAhead = Object.keys(perDiv).filter(d => Number(d) !== myDiv).length;
+    return divOk && divsAhead <= (c === 2 ? 1 : 0);
+  }
+  function surelyFails(league, s, free, T, c) {   // criterion impossible whatever happens in `free`
+    const { w, mx } = winsBounds(league, s, free, T);
+    const myDiv = league.teams[T].div;
+    const divDead = league.teams.some((t, i) => i !== T && t.div === myDiv && w[i] > mx[T]);
+    if (c === 1) return divDead;
+    if (c === 0) {
+      if (!divDead) return false;
+      const A = league.teams.map((t, i) => i).filter(i => i !== T && w[i] > mx[T]);
+      const divsInA = new Set(A.map(i => league.teams[i].div)).size;
+      return A.length - divsInA >= 3;
+    }
+    // bye / one seed: other divisions whose winner is sure to finish ahead of T
+    const divs = {}; league.teams.forEach((t, i) => { if (t.div !== myDiv) divs[t.div] = Math.max(divs[t.div] || 0, w[i]); });
+    const D = Object.values(divs).filter(v => v > mx[T]).length;
+    return divDead || D >= (c === 2 ? 2 : 1);
+  }
+
+  // Exact check. mode 'clinch' asks whether criterion c holds in every finish; 'elim' whether it holds in none.
+  // Returns { verdict: true|false|null, nodes } (null = search budget exhausted).
+  function exactCheck(league, base, picks, overrides, fpOrders, T, c, mode, budget) {
+    const n = league.nTeams;
+    const s = cloneState(base.state);
+    const weeksOpen = league.weeks.filter(w => !w.locked);
+    const fpMin = s.fp.slice(), fpMax = s.fp.slice();
+    const pfMin = s.pf.slice(), pfMax = s.pf.map(() => Infinity);
+    for (const wk of weeksOpen) {
+      const ord = fpOrders && fpOrders[wk.week];
+      if (ord && ord.length === n) { const f = fpFromOrder(ord, n); for (let i = 0; i < n; i++) { fpMin[i] += f[i]; fpMax[i] += f[i]; } }
+      else for (let i = 0; i < n; i++) fpMax[i] += n - 1;
+    }
+    const ov = overrides || {};
+    for (let i = 0; i < n; i++) {
+      if (ov.fp && ov.fp[i] != null && ov.fp[i] !== '') { fpMin[i] = s.fp[i] + Number(ov.fp[i]); fpMax[i] = fpMin[i]; }
+      if (ov.pf && ov.pf[i] != null && ov.pf[i] !== '') { pfMin[i] = s.pf[i] + Number(ov.pf[i]); pfMax[i] = pfMin[i]; }
+    }
+    const ctx = { fpMin, fpMax, pfMin, pfMax };
+    const free = [];
+    for (const g of remainingGames(league)) {
+      const p = picks[g.key] | 0;
+      if (p) { addResult(s, league, g.a, g.b, p); continue; }
+      if (g.a === T || g.b === T) { const mine = g.a === T ? 1 : 2; addResult(s, league, g.a, g.b, mode === 'clinch' ? 3 - mine : mine); continue; }
+      free.push(g);
+    }
+    // adversarial ordering: for a clinch check try the stronger team winning first (rivals pile up wins);
+    // for an elimination check try the weaker team first
+    const strength = i => s.w[i] + 0.5 * s.t[i];
+    const want = mode === 'clinch';
+    let nodes = 0, out = true;
+    const leaf = () => {
+      let ok = true;
+      seedBranches(league, s, ctx, res => { const h = critHolds(res, T, c, league); if (h !== want) { ok = false; return false; } return true; });
+      return ok;
+    };
+    const dfs = k => {
+      if (++nodes > budget) { out = null; return false; }
+      const rest = free.slice(k);
+      if (want ? surelyHolds(league, s, rest, T, c) : surelyFails(league, s, rest, T, c)) return true;
+      if (k === free.length) return leaf();
+      const g = free[k];
+      const first = (strength(g.a) >= strength(g.b)) === want ? 1 : 2;
+      for (const r of [first, 3 - first]) {
+        addResult(s, league, g.a, g.b, r);
+        const okk = dfs(k + 1);
+        removeResult(s, league, g.a, g.b, r);
+        if (!okk) return false;
+      }
+      return true;
+    };
+    const ok = dfs(0);
+    return { verdict: out === null ? null : ok, nodes, free: free.length };
+  }
+
+  // Smallest set of conditions covering the given outcomes of k two-way games. Each outcome is a k-bit mask
+  // (bit b = 1 when the first-listed team of open game b wins). Returns implicants as arrays over games: 1 = first
+  // team wins, 2 = second team wins, 0 = either. Classic prime-implicant search; k is at most 8 here.
+  function implicants(k, minterms) {
+    const S = new Set(minterms); const total = 1 << k;
+    if (S.size === total) return [new Array(k).fill(0)];
+    if (!S.size) return [];
+    const pats = []; const pow3 = Math.pow(3, k);
+    for (let code = 0; code < pow3; code++) {
+      const pat = []; let c = code; for (let b = 0; b < k; b++) { pat.push(c % 3); c = Math.floor(c / 3); }
+      const freeBits = pat.map((v, b) => v === 0 ? b : -1).filter(b => b >= 0);
+      let ok = true, cover = [];
+      for (let f = 0; f < (1 << freeBits.length) && ok; f++) {
+        let m = 0; pat.forEach((v, b) => { if (v === 1) m |= 1 << b; }); freeBits.forEach((b, j) => { if (f & (1 << j)) m |= 1 << b; });
+        if (!S.has(m)) ok = false; else cover.push(m);
+      }
+      if (ok) pats.push({ pat, cover, size: freeBits.length });
+    }
+    pats.sort((a, b) => b.size - a.size);
+    const prime = pats.filter(p => !pats.some(q => q !== p && q.size > p.size && p.pat.every((v, b) => q.pat[b] === 0 || q.pat[b] === v)));
+    const left = new Set(S), out = [];
+    while (left.size) { let best = null, bc = 0; for (const p of prime) { const c = p.cover.filter(m => left.has(m)).length; if (c > bc) { bc = c; best = p; } } if (!best) break; out.push(best.pat); best.cover.forEach(m => left.delete(m)); }
+    return out;
+  }
+
+  // ---------- season history ----------
+  // The league as it stood after week X: weeks <= X locked with their scores, later weeks unplayed.
+  function leagueAfterWeek(league, X) {
+    const weeks = league.weeks.map(w => w.week <= X
+      ? Object.assign({}, w, { locked: true })
+      : Object.assign({}, w, { locked: false, games: w.games.map(g => ({ a: g.a, b: g.b, pa: 0, pb: 0 })), scores: {}, lineups: {} }));
+    return Object.assign({}, league, { weeks });
+  }
+  // Seeds (by the tiebreakers) and simulated odds after week X, from results to date only (no projections),
+  // with a fixed seed so everyone who opens the page gets the same numbers.
+  function historyPoint(league, X, nSims, labelFor) {
+    const L = leagueAfterWeek(league, X);
+    const base = buildBase(L);
+    const seeding = seedPlayoffs(L, base.state, { labelFor });
+    const n = league.nTeams;
+    const finish = new Array(n).fill(0);
+    seeding.seeds.forEach(x => { finish[x.team] = x.seed; });
+    seeding.out.forEach((t, k) => { finish[t] = seeding.seeds.length + 1 + k; });
+    const odds = simulate(L, base, {}, {}, nSims, 3, null, { seed: 1000 + X });
+    return { week: X, finish, odds, seeding };
+  }
+
+  // ---------- projections: optimal lineups and per-week score models ----------
+  const SLOT_ELIG = { QB: ['QB'], RB: ['RB'], WR: ['WR'], TE: ['TE'], K: ['K'], DEF: ['DEF'], FLEX: ['RB', 'WR', 'TE'], SUPER_FLEX: ['QB', 'RB', 'WR', 'TE'], REC_FLEX: ['WR', 'TE'], WRRB_FLEX: ['RB', 'WR'], WR_TE: ['WR', 'TE'], DL: ['DL'], LB: ['LB'], DB: ['DB'], IDP_FLEX: ['DL', 'LB', 'DB'] };
+
+  // Greedy best lineup: fill the most restrictive slots first, each with the highest projected unused eligible player.
+  function optimalLineup(slots, pids, projOf, posOf) {
+    const order = slots.map((s, i) => ({ s, i, e: SLOT_ELIG[s] || [s] })).sort((a, b) => a.e.length - b.e.length);
+    const used = new Set(); const picks = new Array(slots.length).fill(null); let total = 0;
+    for (const o of order) {
+      let best = null, bp = -Infinity;
+      for (const pid of pids) {
+        if (used.has(pid)) continue;
+        const fp = posOf(pid); if (!fp.some(p => o.e.includes(p))) continue;
+        const v = projOf(pid); if (v > bp) { bp = v; best = pid; }
+      }
+      if (best !== null) { used.add(best); picks[o.i] = { pid: best, pts: bp, slot: o.s }; total += bp; }
+    }
+    return { total, starters: picks.filter(Boolean) };
+  }
+
+  const GAME_MS = 3.25 * 3600e3; // an NFL game is treated as over this long after kickoff
+
+  // Build {week: {mu[], sd[], live, detail[]}} for every unlocked week from a projections.json payload.
+  // Future weeks: optimal lineup from the current roster, blended a little toward the season average the
+  // further out the week is. The current week, once kickoffs have started: each set starter counts actual
+  // points for the part of the game already played plus projection for the rest, and the spread shrinks
+  // as fewer points are left to come.
+  function buildWeekModels(league, base, P, now, cur) {
+    const models = {};
+    if (!P || !P.proj || !P.players) return models;
+    const sigma = Number(P.sigma) || 20, bias = Number(P.bias) || 0;
+    const slots = league.slots || P.slots || [];
+    for (const wk of league.weeks) {
+      if (wk.locked) continue;
+      const pw = P.proj[String(wk.week)]; if (!pw) continue;
+      // Kickoffs come as full timestamps (exact) or, when only the date is known, a plain YYYY-MM-DD (US date).
+      // Date-only: nothing on that date starts before 13:30 UTC, and everything is over by 08:00 UTC two days on.
+      const kick = (P.kickoffs || {})[String(wk.week)] || {};
+      const kickT = {};
+      for (const t in kick) {
+        const v = String(kick[t]);
+        if (/^\d{4}-\d{2}-\d{2}$/.test(v)) { const d0 = Date.parse(v + 'T00:00:00Z'); if (!isNaN(d0)) kickT[t] = { start: d0 + 13.5 * 3600e3, end: d0 + 32 * 3600e3, exact: false }; }
+        else { const k = Date.parse(v); if (!isNaN(k)) kickT[t] = { start: k, end: k + GAME_MS, exact: true }; }
+      }
+      const started = Object.values(kickT).some(k => k.start <= now);
+      const live = wk.week === cur && started;
+      const lam = Math.min(0.5, 0.1 * Math.max(0, wk.week - cur));
+      const m = { mu: [], sd: [], live, detail: [] };
+      const projOf = pid => Number(pw[pid]) || 0;
+      const posOf = pid => (P.players[pid] && P.players[pid].fp) || [];
+      for (let i = 0; i < league.nTeams; i++) {
+        const t = league.teams[i];
+        const lu = wk.lineups && wk.lineups[i];
+        let starters;
+        if (live && lu && lu.starters && lu.starters.length) starters = lu.starters.filter(s => s && String(s) !== '0').map(pid => ({ pid: String(pid), pts: projOf(pid), slot: '' }));
+        else starters = optimalLineup(slots, t.players || [], projOf, posOf).starters;
+        let mean = 0, projSum = 0, remSum = 0, actual = 0, nStarted = 0, nDone = 0;
+        for (const s of starters) {
+          const info = P.players[s.pid] || {}; const k = kickT[info.team];
+          const pts = live ? (Number(lu && lu.pts && lu.pts[s.pid]) || 0) : 0;
+          let c, rem;
+          if (!live || !k || now < k.start) { c = s.pts; rem = s.pts; }                  // not started (or game time unknown)
+          else if (now >= k.end) { c = pts; rem = 0; nStarted++; nDone++; }               // finished: actual points
+          else if (k.exact) {                                                             // in progress, known kickoff
+            const r = Math.max(0, 1 - (now - k.start) / GAME_MS);
+            c = pts + s.pts * r; rem = s.pts * r; nStarted++;
+          } else {                                                                        // in progress window, time unknown:
+            c = Math.max(pts, s.pts); rem = Math.max(0, s.pts - pts);                     // keep projection until outscored
+            if (pts > 0) nStarted++;
+          }
+          mean += c; projSum += s.pts; remSum += rem; actual += pts;
+        }
+        const remFrac = projSum > 0 ? Math.min(1, remSum / projSum) : (starters.length && nDone === starters.length ? 0 : 1);
+        const projMean = mean + bias * remFrac;
+        const mu = (1 - lam) * projMean + lam * base.model[i].mu;
+        const sd = Math.sqrt(((1 - lam) * sigma * sigma + lam * base.sd * base.sd) * remFrac);
+        m.mu.push(mu); m.sd.push(sd);
+        m.detail.push({ proj: projSum, actual, remFrac, mu, starters, setLineup: !!(live && lu && lu.starters && lu.starters.length), started: nStarted, done: nDone, n: starters.length });
+      }
+      models[wk.week] = m;
+    }
+    return models;
+  }
+
+  // ---------- share links ----------
+  function encodeScenario(league, picks, overrides) {
+    const rem = remainingGames(league);
+    const from = rem.length ? rem[0].week : 0;
+    const str = rem.map(g => String(picks[g.key] | 0)).join('');
+    const parts = [`from=${from}`, `p=${str}`];
+    const ov = overrides || {};
+    const enc = o => Object.entries(o || {}).filter(([, v]) => v != null && v !== '').map(([k, v]) => `${league.teams[k].id}:${v}`).join(',');
+    const f = enc(ov.fp), q = enc(ov.pf);
+    if (f) parts.push(`fp=${f}`);
+    if (q) parts.push(`pf=${q}`);
+    const fo = arguments[3] || {};
+    const os = Object.keys(fo).map(Number).sort((a, b) => a - b)
+      .filter(w => fo[w] && fo[w].length === league.nTeams && league.weeks.some(x => x.week === w && !x.locked))
+      .map(w => `${w}.${fo[w].map(i => i.toString(16)).join('')}`);
+    if (os.length) parts.push(`o=${os.join(',')}`);
+    return parts.join('&');
+  }
+
+  function decodeScenario(league, hash) {
+    const picks = {}, overrides = { fp: {}, pf: {} };
+    if (!hash) return { picks, overrides };
+    const q = new URLSearchParams(hash.replace(/^#/, ''));
+    const from = Number(q.get('from') || 0), p = q.get('p') || '';
+    if (p) {
+      // games in canonical order starting from week `from` (including weeks that may since have locked)
+      const all = [];
+      league.weeks.forEach(wk => { if (wk.week >= from) wk.games.forEach((g, gi) => all.push({ key: `${wk.week}:${gi}`, locked: wk.locked })); });
+      all.forEach((g, i) => { const c = p[i] | 0; if (c && !g.locked) picks[g.key] = c; });
+    }
+    const dec = (str, tgt) => (str || '').split(',').filter(Boolean).forEach(kv => {
+      const [id, v] = kv.split(':'); const idx = league.teams.findIndex(t => String(t.id) === id);
+      if (idx >= 0 && v !== '' && !isNaN(Number(v))) tgt[idx] = Number(v);
+    });
+    dec(q.get('fp'), overrides.fp); dec(q.get('pf'), overrides.pf);
+    const fpOrders = {};
+    (q.get('o') || '').split(',').filter(Boolean).forEach(tok => {
+      const [w, digits] = tok.split('.'); const week = Number(w);
+      if (!digits || digits.length !== league.nTeams) return;
+      const order = digits.split('').map(c => parseInt(c, 16));
+      if (new Set(order).size !== league.nTeams || order.some(i => isNaN(i) || i >= league.nTeams)) return;
+      if (league.weeks.some(x => x.week === week && !x.locked)) fpOrders[week] = order;
+    });
+    return { picks, overrides, fpOrders };
+  }
+
+  root.Engine = { pct, fmtRec, buildBase, buildScenario, remainingGames, teamRemaining, resolveSeed, seedPlayoffs, simulate, winProb, encodeScenario, decodeScenario, projectedFP, projectedPF, optimalLineup, buildWeekModels, defaultFpOrder, reconcileOrder, effectiveFpOrders, fpFromOrder, picksFromOrder, leagueAfterWeek, historyPoint, exactCheck, seedBranches, implicants, CRIT, STEPS };
+})(typeof window !== 'undefined' ? window : globalThis);
+</script>
+<script>
+(function () {
+  'use strict';
+  const E = window.Engine;
+  const DEFAULT_LEAGUE = '1591268402';
+  const SITE_NAME = 'Descendants of Travel';
+  // Data comes from league.json, written by build_league.py on a schedule (ESPN's API cannot be read from a browser).
+  const DATA_URL = 'league.json';
+  const SHOW_HEAT = false;
+
+  // Manager names. Matched on load by ESPN team id first, then owner (member) id, then current team name.
+  // The Manager mapping table is hidden; visit the site with ?admin=1 to see it under Advanced, and use
+  // "Copy locked config" there to regenerate this list with ids (e.g. a new manager or a new season).
+  const MANAGERS = [
+    { manager: "Benji", team: "Sydney Sideliners" },
+    { manager: "Brian N", team: "The World Enders" },
+    { manager: "Brian C", team: "Cafe Camu" },
+    { manager: "Chris", team: "Enter the Dragon" },
+    { manager: "Eric", team: "Wise Guys" },
+    { manager: "Gary and Joe", team: "The S-x Gods" },
+    { manager: "Pat", team: "The Griswolds" },
+    { manager: "Scott", team: "SS Bombers" },
+    { manager: "Bob J", team: "The Magoos" },
+    { manager: "John", team: "Helmet Head" },
+    { manager: "Doc", team: "Doc Down Under II" },
+    { manager: "Bob M", team: "The Storm" },
+  ];
+  const norm = s => String(s || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  function matchManager(teamId, ownerIds, teamName) {
+    let m = MANAGERS.find(x => x.team_id != null && String(x.team_id) === String(teamId)); if (m) return { m, by: 'team id' };
+    m = MANAGERS.find(x => x.owner_id && (ownerIds || []).some(o => norm(o) === norm(x.owner_id))); if (m) return { m, by: 'owner id' };
+    m = MANAGERS.find(x => x.team && norm(x.team) === norm(teamName)); if (m) return { m, by: 'team name' };
+    return null;
+  }
+  const ADMIN = new URLSearchParams(location.search).get('admin') === '1';
+  let nameMode = 'mgr';
+  try { nameMode = localStorage.getItem('dot:names') === 'team' ? 'team' : 'mgr'; } catch (e) { /* ignore */ }
+  const API = 'https://api.sleeper.app/v1';
+  const $ = id => document.getElementById(id);
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const pctS = x => `${Math.round(x * 100)}%`;
+
+  let leagueId, league, base, picks = {}, overrides = { fp: {}, pf: {} }, fpOrders = {}, orders = {};
+  let models = {}, projInfo = null, projPlayers = {}; // projInfo: { generated, weeks, live } or null when falling back to season averages
+  let view = 'week', curTab = 1, selTeam = 0, liveProb = true, sim = null, simTimer = null, renderTimer = null;
+  let exact = {}, exactBusy = false, exactNote = '', scenTeam = 0, scenCrit = 0, heat = {};
+  const CRIT_NAMES = ['Playoffs', 'Division', 'Bye', '1 seed'];
+  let histCache = {}, histRunning = false, histWanted = false, trackMetric = 'playoffs', trackSel = [];
+  let scenario, seeding, warnings = [];
+
+  // ---------- loading ----------
+  async function j(url) {
+    const r = await fetch(url);
+    if (!r.ok) throw new Error(`Sleeper returned ${r.status} for ${url.replace(API, '')}`);
+    return r.json();
+  }
+
+  async function load() {
+    const params = new URLSearchParams(location.search);
+    leagueId = params.get('league') || DEFAULT_LEAGUE;
+    try {
+      const r = await fetch(`${DATA_URL}?v=${Math.floor(Date.now() / 300000)}`, { cache: 'no-store' });
+      if (!r.ok) throw new Error(`league.json ${r.status}`);
+      const D = await r.json();
+      if (String(D.league_id) !== String(leagueId)) warnings.push(`league.json is for league ${D.league_id}, not ${leagueId}.`);
+      league = buildLeague(D);
+      base = E.buildBase(league);
+      models = {}; projInfo = null;
+      try {
+        const P = { sigma: D.sigma, bias: D.bias, players: D.players, proj: D.proj, kickoffs: D.kickoffs, slots: D.slots };
+        models = E.buildWeekModels(league, base, P, Date.now(), league.cur); projPlayers = D.players || {};
+        const weeks = Object.keys(models).map(Number).sort((x, y) => x - y);
+        if (weeks.length) projInfo = { generated: new Date(D.generated), weeks, live: weeks.some(w => models[w].live), sigma: D.sigma };
+      } catch (e) { console.warn('Using season scoring averages:', e.message || e); }
+      restore();
+      $('loadBox').innerHTML = warnings.length ? `<div class="notice">${warnings.map(w => `<p>${esc(w)}</p>`).join('')}</div>` : '';
+      $('main').classList.remove('hidden');
+      document.title = `${SITE_NAME} playoff picture`;
+      $('title').textContent = SITE_NAME;
+      curTab = league.firstOpenWeek || league.weeks[league.weeks.length - 1].week;
+      buildWeekTabs(); buildTeamGrid(); setNameMode(nameMode);
+      renderAll();
+    } catch (e) {
+      $('status').textContent = 'Could not load league data';
+      $('loadBox').innerHTML = `<div class="notice err"><p><strong>${esc(e.message || e)}</strong></p>
+        <p class="small" style="margin-top:6px">The page reads <code>league.json</code>, which the scheduled job writes from ESPN. If it is missing, run the "Update league data" action in the repository and check its log.</p></div>`;
+      console.error(e);
+    }
+  }
+
+  function buildLeague(D) {
+    const src = (D.teams || []).slice().sort((a, b) => a.id - b.id);
+    const idxOf = {}; src.forEach((t, i) => { idxOf[String(t.id)] = i; });
+    const teams = src.map(t => {
+      const owners = (t.owners || []).map(o => o.name).filter(Boolean).join(', ');
+      const hit = matchManager(t.id, (t.owners || []).map(o => o.id), t.name);
+      return { id: t.id, name: t.name, owner: owners, ownerIds: (t.owners || []).map(o => o.id), userId: (t.owners || []).map(o => o.id).join('|'), div: t.div, players: (t.players || []).map(String),
+        manager: hit ? hit.m.manager : (owners || t.name), matchedBy: hit ? hit.by : null };
+    });
+    const divs = Object.assign({}, D.divisions || {});
+    teams.forEach(t => { if (!divs[t.div]) divs[t.div] = `Division ${t.div}`; });
+    if (Object.keys(divs).length < 2) warnings.push('This league has no divisions in ESPN, so seeds 1–3 will not behave as intended.');
+    const cur = Number(D.cur) || 1;
+    const weeks = []; let firstOpenWeek = null;
+    (D.weeks || []).forEach(w => {
+      const scores = {}, lineups = {};
+      for (const k in (w.scores || {})) if (k in idxOf) scores[idxOf[k]] = Number(w.scores[k]) || 0;
+      for (const k in (w.lineups || {})) if (k in idxOf) lineups[idxOf[k]] = w.lineups[k];
+      const games = (w.games || []).filter(g => String(g.a) in idxOf && String(g.b) in idxOf).map(g => ({ a: idxOf[String(g.a)], b: idxOf[String(g.b)], pa: Number(g.pa) || 0, pb: Number(g.pb) || 0 }));
+      if (!games.length) { warnings.push(`Week ${w.week}: no matchups in the data, so it is left out.`); return; }
+      const locked = !!w.locked;
+      if (!locked && firstOpenWeek === null) firstOpenWeek = w.week;
+      weeks.push({ week: w.week, locked, games, scores, lineups });
+    });
+    return { name: D.name || SITE_NAME, season: D.season, teams, divs, weeks, nTeams: teams.length, cur, firstOpenWeek, lastReg: D.lastReg || weeks.length, fetchedAt: new Date(D.generated || Date.now()), slots: D.slots || [] };
+  }
+
+  // ---------- persistence ----------
+  const LS_KEY = () => `dot:${leagueId}`;
+  function restore() {
+    let hash = location.hash;
+    if (!hash || hash.length < 2) { try { hash = localStorage.getItem(LS_KEY()) || ''; } catch (e) { hash = ''; } }
+    const d = E.decodeScenario(league, hash);
+    picks = d.picks; overrides = d.overrides; fpOrders = d.fpOrders || {};
+  }
+  function persist() {
+    const h = E.encodeScenario(league, picks, overrides, fpOrders);
+    try { history.replaceState(null, '', `${location.pathname}${location.search}#${h}`); } catch (e) { /* ignore */ }
+    try { localStorage.setItem(LS_KEY(), `#${h}`); } catch (e) { /* ignore */ }
+  }
+  function shareUrl() { return `${location.origin}${location.pathname}${location.search}#${E.encodeScenario(league, picks, overrides, fpOrders)}`; }
+
+  // ---------- helpers ----------
+  const T = i => league.teams[i];
+  const N = i => nameMode === 'mgr' ? T(i).manager : T(i).name;
+  const recOf = (s, i) => E.fmtRec(s.w[i], s.l[i], s.t[i]);
+  const divRecOf = (s, i) => E.fmtRec(s.dw[i], s.dl[i], s.dt[i]);
+  const winP = (a, b, week) => E.winProb(base, a, b, models[week]);
+  const muOf = (i, week) => models[week] ? models[week].mu[i] : base.model[i].mu;
+  function setPick(key, val) {
+    if (val) picks[key] = val; else delete picks[key];
+    const week = Number(key.split(':')[0]);
+    scheduleRender();
+  }
+  function clearWeek(week) {
+    const wk = league.weeks.find(w => w.week === week); if (!wk) return;
+    wk.games.forEach((g, gi) => delete picks[`${week}:${gi}`]);
+  }
+  function scheduleRender() { clearTimeout(renderTimer); renderTimer = setTimeout(renderAll, 10); }
+
+  // ---------- rendering ----------
+  const undoStack = [], redoStack = [];
+  let lastSnap = null, restoring = false;
+  function snapshot() { return E.encodeScenario(league, picks, overrides, fpOrders); }
+  function applySnap(snap) { const d = E.decodeScenario(league, '#' + snap); picks = d.picks; overrides = d.overrides; fpOrders = d.fpOrders || {}; }
+  function trackHistory() {
+    const now = snapshot();
+    if (lastSnap !== null && now !== lastSnap && !restoring) { undoStack.push(lastSnap); if (undoStack.length > 100) undoStack.shift(); redoStack.length = 0; }
+    lastSnap = now; restoring = false;
+    $('btnUndo').disabled = !undoStack.length; $('btnRedo').disabled = !redoStack.length;
+  }
+  function undo() { if (!undoStack.length) return; redoStack.push(snapshot()); restoring = true; applySnap(undoStack.pop()); renderAll(); toast('Undone'); }
+  function redo() { if (!redoStack.length) return; undoStack.push(snapshot()); restoring = true; applySnap(redoStack.pop()); renderAll(); toast('Redone'); }
+
+  function renderAll() {
+    orders = {}; fpOrders = {};
+    scenario = E.buildScenario(league, base, picks, overrides, orders);
+    seeding = E.seedPlayoffs(league, scenario.state, { labelFor: N });
+    trackHistory();
+    persist();
+    renderStatus(); renderSeeds(); renderStandings();
+    if (view === 'week') renderWeek(); else if (view === 'team') renderTeam(); else if (view === 'adv') renderAdv(); else if (view === 'scen') renderScenarios(); else renderTracker();
+    updateTabDots();
+    if (liveProb) scheduleSim(); else renderProb();
+  }
+
+  function renderStatus() {
+    const rem = E.remainingGames(league);
+    const left = rem.length - Object.keys(picks).filter(k => picks[k]).length;
+    const wkTxt = league.cur >= 99 ? 'Regular season complete' : `Week ${league.cur} of ${league.lastReg}`;
+    const when = league.fetchedAt.toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+    let src;
+    if (!projInfo) src = 'win chances from season scoring averages (projections unavailable)';
+    else {
+      const gen = projInfo.generated.toLocaleString([], { weekday: 'short', hour: 'numeric', minute: '2-digit' });
+      src = `${projInfo.live ? 'live scores blended with ' : ''}ESPN projections from ${gen}`;
+    }
+    $('status').textContent = `${wkTxt} · ${rem.length} regular-season games still to play · ESPN data as of ${when} (refreshes on a schedule; press Refresh) · ${src}`;
+    $('simNote').textContent = projInfo
+      ? 'Unpicked games are simulated from each team\'s projected optimal lineup (ESPN player projections in league scoring), with the spread taken from how far actual scores have landed from projections this season. In a week with games under way, points already scored are locked in and only the remainder is uncertain. Picked games are fixed. Points For in future weeks comes from the same simulated scores unless overridden in Advanced.'
+      : 'Projections are unavailable, so unpicked games are simulated from each team\'s scoring average and spread this season; picked games are fixed. Points For in future weeks comes from the same simulated scores unless overridden in Advanced.';
+    $('unpicked').textContent = left ? `${left} game${left === 1 ? '' : 's'} unpicked` : rem.length ? 'Every remaining game picked' : '';
+  }
+
+  function liveTag(i, week) {
+    const m = models[week]; if (!m || !m.live) return '';
+    const d = m.detail[i];
+    return d.n && d.done === d.n ? ' <b class="done">final</b>' : d.started ? ' <b class="live">live</b>' : '';
+  }
+  function projTitle(i, week) {
+    const m = models[week]; if (!m) return 'Season scoring average (projections unavailable)';
+    const d = m.detail[i];
+    const names = d.starters.map(s => (projPlayers[s.pid] && projPlayers[s.pid].name) || s.pid).join(', ');
+    if (m.live) return `${d.setLineup ? 'Set lineup' : 'Optimal lineup'}: ${d.actual.toFixed(1)} scored so far, ${d.done} of ${d.n} starters finished, ${Math.round(d.remFrac * 100)}% of projected points still to come (${names})`;
+    return `Optimal lineup from current roster, projected ${d.proj.toFixed(1)}${week > league.cur ? ', blended toward season average for a future week' : ''}`;
+  }
+
+  function renderSeeds() {
+    const s = scenario.state;
+    const ol = log => `<ol>${log.map(l => `<li>${esc(l)}</li>`).join('')}</ol>`;
+    $('seeds').innerHTML = seeding.seeds.map(x => {
+      const p = sim ? sim[x.team] : null;
+      const divName = league.divs[T(x.team).div];
+      const tag = x.type === 'div' ? `${esc(divName)} champion` : 'Wild card';
+      let how = '';
+      if (x.type === 'div') {
+        const dl = (seeding.divWinners[T(x.team).div] || {}).log || [];
+        const parts = [];
+        parts.push(`<h4>Winning the ${esc(divName)}</h4>${dl.length ? ol(dl) : '<p class="muted">Best record in the division outright.</p>'}`);
+        parts.push(`<h4>Seed ${x.seed} among the division winners</h4>${x.log.length ? ol(x.log) : '<p class="muted">Only division winner left for this seed.</p>'}`);
+        how = `<details class="how"><summary>How seed ${x.seed} was decided</summary>${parts.join('')}</details>`;
+      } else if (x.log.length) how = `<details class="how"><summary>How seed ${x.seed} was decided</summary>${ol(x.log)}</details>`;
+      return `<div class="seed ${x.type}"><div class="no">${x.seed}</div><div class="body">
+        <div class="nm"><span>${esc(N(x.team))}</span>${p ? `<span class="pct" title="Chance of making the playoffs given these picks">${pctS(p.playoffs)} in</span>` : ''}</div>
+        <div class="meta"><span class="tag">${tag}</span><span>${recOf(s, x.team)}</span><span>Div ${divRecOf(s, x.team)}</span><span>PF ${s.pf[x.team].toFixed(1)}</span></div>
+        ${how}</div></div>`;
+    }).join('');
+    $('outlist').innerHTML = (seeding.outLog || []).map(x => {
+      const p = sim ? sim[x.team] : null;
+      const how = x.log.length ? `<details class="how"><summary>How ${x.pos}th was decided</summary>${ol(x.log)}</details>` : '';
+      return `<div class="orow"><div class="no">${x.pos}</div><div class="body">
+        <div class="nm"><span>${esc(N(x.team))}</span>${p ? `<span class="pct">${pctS(p.playoffs)} in</span>` : ''}</div>
+        <div class="meta"><span>${recOf(s, x.team)}</span><span>Div ${divRecOf(s, x.team)}</span><span>PF ${s.pf[x.team].toFixed(1)}</span></div>${how}</div></div>`;
+    }).join('') || '<div class="orow"><div class="body muted">Everyone is in</div></div>';
+    const ol2 = seeding.outLog || [];
+    $('outHint').textContent = ol2.length ? ol2.map(x => `${x.pos}. ${N(x.team)}`).join('  ·  ') : '';
+  }
+
+  function renderStandings() {
+    const s = scenario.state;
+    const champs = new Set(Object.values(seeding.divWinners).map(x => x.winner));
+    const divNos = Object.keys(league.divs).sort((a, b) => String(a).localeCompare(String(b), undefined, { numeric: true }));
+    let html = `<thead><tr><th>Team</th><th class="num">W-L</th><th class="num">Div</th>${ADMIN ? '<th class="num" title="All-play wins: shown on the admin view only; not a tiebreaker in this league">FP wins</th>' : ''}<th class="num">PF</th></tr></thead><tbody>`;
+    for (const d of divNos) {
+      const members = league.teams.map((t, i) => i).filter(i => T(i).div === d)
+        .sort((a, b) => (E.pct(s.w[b], s.l[b], s.t[b]) - E.pct(s.w[a], s.l[a], s.t[a])) || (champs.has(b) - champs.has(a)) || (s.pf[b] - s.pf[a]));
+      html += `<tr><td class="divname" colspan="${ADMIN ? 5 : 4}">${esc(league.divs[d])}</td></tr>`;
+      for (const i of members) html += `<tr class="${champs.has(i) ? 'champ' : ''}"><td class="teamcell">${esc(N(i))}</td><td class="num">${recOf(s, i)}</td><td class="num">${divRecOf(s, i)}</td>${ADMIN ? `<td class="num">${s.fp[i].toFixed(1)}</td>` : ''}<td class="num">${s.pf[i].toFixed(1)}</td></tr>`;
+    }
+    $('stdTable').innerHTML = html + '</tbody>';
+  }
+
+  // week view
+  function buildWeekTabs() {
+    $('weekTabs').innerHTML = league.weeks.map(w => `<button type="button" data-w="${w.week}" aria-pressed="${w.week === curTab}">Wk ${w.week}${models[w.week] && models[w.week].live ? ' <b class="live">live</b>' : ''}${w.locked ? '' : '<span class="tick hidden">✓</span>'}</button>`).join('');
+    $('weekTabs').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { curTab = Number(b.dataset.w); buildWeekTabs(); renderWeek(); }));
+  }
+  function updateTabDots() {
+    $('weekTabs').querySelectorAll('button').forEach(b => {
+      const wk = league.weeks.find(w => w.week === Number(b.dataset.w)); if (!wk || wk.locked) return;
+      const done = wk.games.every((g, gi) => picks[`${wk.week}:${gi}`]);
+      const dot = b.querySelector('.tick'); if (dot) dot.classList.toggle('hidden', !done);
+    });
+  }
+  function sideHtml(i, opp, wk, gi, right, pick) {
+    const s = scenario.state;
+    const key = `${wk.week}:${gi}`;
+    if (wk.locked) {
+      const my = wk.scores[i] || 0, th = wk.scores[opp] || 0;
+      const cls = my > th ? 'win' : my < th ? 'lose' : '';
+      return `<div class="side final ${right ? 'right' : ''} ${cls}"><span class="nm">${esc(N(i))}</span><span class="meta"><span class="score">${my.toFixed(2)}</span><span>${esc(league.divs[T(i).div])}</span></span></div>`;
+    }
+    const p = winP(i, opp, wk.week);
+    const mine = right ? 2 : 1;
+    const cls = pick === mine ? 'win' : pick ? 'lose' : '';
+    const pp = sim ? `<span title="Chance of making the playoffs">${pctS(sim[i].playoffs)} in</span>` : '';
+    return `<button type="button" class="side ${right ? 'right' : ''} ${cls}" data-key="${key}" data-val="${mine}" aria-pressed="${pick === mine}">
+      <span class="nm">${esc(N(i))}</span>
+      <span class="meta"><span>${recOf(s, i)}</span><span title="${projTitle(i, wk.week)}">${muOf(i, wk.week).toFixed(1)} proj${liveTag(i, wk.week)}</span><span title="Chance of winning this game">${pctS(p)} to win</span>${pp}</span>
+      <span class="bar"><i style="width:${Math.round(p * 100)}%"></i></span></button>`;
+  }
+  function renderWeek() {
+    const wk = league.weeks.find(w => w.week === curTab) || league.weeks[0];
+    const rows = wk.games.map((g, gi) => {
+      const pick = picks[`${wk.week}:${gi}`] | 0;
+      const key = `${wk.week}:${gi}`;
+      let mid;
+      if (wk.locked) mid = '<span class="vs">final</span>';
+      else if (!SHOW_HEAT || pick || !sim || heat[key] == null) mid = '<span class="vs">v</span>';
+      else mid = `<span class="vs heat h${heat[key]}" title="Playoff heat ${heat[key]} of 10: how much this result swings playoff, division, bye and 1-seed chances across the league, relative to the hottest unpicked game"><b>${heat[key]}</b><small>heat</small></span>`;
+      return `<div class="mu">${sideHtml(g.a, g.b, wk, gi, false, pick)}${mid}${sideHtml(g.b, g.a, wk, gi, true, pick)}</div>`;
+    }).join('');
+    const anyHeat = SHOW_HEAT && !wk.locked && sim && wk.games.some((g, gi) => !(picks[`${wk.week}:${gi}`] | 0) && heat[`${wk.week}:${gi}`] != null);
+    const heatNote = anyHeat ? `<details class="heatnote"><summary><span class="hk">0–10</span> Playoff heat: how much each game matters to the playoff race</summary>
+      <p>The number between each pair is how much that game's result changes the league's playoff picture: everyone's chances of a playoff spot, with division, bye and 1-seed chances counting at smaller weight. It's relative: the most important open game across all remaining weeks scores 10 and the rest are scaled against it, so a 5 matters about half as much. Games you've already picked aren't scored, and the numbers update as you pick.</p></details>` : '';
+    const tools = wk.locked ? '' : `<div class="mtools">${heatNote}<span class="mbtns"><button class="btn sm" type="button" id="wkFav">Favourites this week</button><button class="btn sm" type="button" id="wkClear">Clear this week</button></span></div>`;
+    const colHead = wk.locked || !SHOW_HEAT ? '' : `<div class="mu muhead"><span class="muh">Matchup</span><span class="vs heathead" title="Playoff heat, 0–10: how much each result swings the playoff race, relative to the hottest open game">Heat</span><span class="muh right">Matchup</span></div>`;
+    $('matchups').innerHTML = tools + colHead + rows + (wk.locked ? '' : weekScenHtml(wk));
+    if (!wk.locked) { const d = $('wscen'); if (d) d.addEventListener('toggle', () => { wsOpen[wk.week] = d.open; if (d.open) { renderWeekScen(); scheduleWeekScen(); } }); renderWeekScen(); scheduleWeekScen(); }
+    $('matchups').querySelectorAll('button.side').forEach(b => b.addEventListener('click', () => {
+      const v = Number(b.dataset.val); const k = b.dataset.key;
+      setPick(k, picks[k] === v ? 0 : v);
+    }));
+    const fav = $('wkFav'); if (fav) fav.addEventListener('click', () => { wk.games.forEach((g, gi) => { picks[`${wk.week}:${gi}`] = winP(g.a, g.b, wk.week) >= 0.5 ? 1 : 2; }); scheduleRender(); });
+    const clr = $('wkClear'); if (clr) clr.addEventListener('click', () => { clearWeek(wk.week); scheduleRender(); });
+  }
+
+  // team view
+  function buildTeamGrid() {
+    const order = league.teams.map((t, i) => i).sort((a, b) => String(T(a).div).localeCompare(String(T(b).div)) || N(a).localeCompare(N(b)));
+    $('teamGrid').innerHTML = order.map(i => `<button type="button" data-i="${i}" aria-pressed="${i === selTeam}">${esc(N(i))}<small data-rec="${i}"></small></button>`).join('');
+    $('teamGrid').querySelectorAll('button').forEach(b => b.addEventListener('click', () => { selTeam = Number(b.dataset.i); renderTeam(); }));
+  }
+  function renderTeam() {
+    const s = scenario.state;
+    buildTeamGrid();
+    $('teamGrid').querySelectorAll('button').forEach(b => { const i = Number(b.dataset.i); b.setAttribute('aria-pressed', i === selTeam); b.querySelector('small').textContent = `${recOf(s, i)} · ${league.divs[T(i).div]}`; });
+    const i = selTeam;
+    const rows = league.weeks.map(wk => {
+      const gi = wk.games.findIndex(g => g.a === i || g.b === i); if (gi < 0) return '';
+      const g = wk.games[gi]; const opp = g.a === i ? g.b : g.a; const key = `${wk.week}:${gi}`;
+      const sameDiv = T(opp).div === T(i).div;
+      const oppTxt = `<span class="opp">${esc(N(opp))}<small>${recOf(s, opp)}${sameDiv ? ' · division' : ''}</small></span>`;
+      if (wk.locked) {
+        const my = wk.scores[i] || 0, th = wk.scores[opp] || 0; const r = my > th ? 'W' : my < th ? 'L' : 'T';
+        return `<div class="tg final"><span class="wk">Wk ${wk.week}</span>${oppTxt}<span class="wl"><span style="color:${r === 'W' ? 'var(--win)' : r === 'L' ? 'var(--loss)' : 'inherit'}">${r} ${my.toFixed(1)}–${th.toFixed(1)}</span></span></div>`;
+      }
+      const pick = picks[key] | 0; const mine = g.a === i ? 1 : 2; const theirs = 3 - mine;
+      const p = winP(i, opp, wk.week);
+      return `<div class="tg"><span class="wk">Wk ${wk.week}</span>${oppTxt}<span class="wl" title="${muOf(i, wk.week).toFixed(1)} v ${muOf(opp, wk.week).toFixed(1)} projected, ${pctS(p)} to win">
+        <button type="button" class="${pick === mine ? 'on-w' : ''}" data-key="${key}" data-val="${mine}" aria-pressed="${pick === mine}">Win</button>
+        <button type="button" class="${pick === theirs ? 'on-l' : ''}" data-key="${key}" data-val="${theirs}" aria-pressed="${pick === theirs}">Loss</button></span></div>`;
+    }).join('');
+    $('teamGames').innerHTML = rows;
+    $('teamGames').querySelectorAll('.wl button').forEach(b => b.addEventListener('click', () => {
+      const v = Number(b.dataset.val); const k = b.dataset.key; setPick(k, picks[k] === v ? 0 : v);
+    }));
+  }
+
+  // advanced view
+  function renderAdv() {
+    const rem = E.remainingGames(league);
+    let html = `<thead><tr><th>Team</th><th class="num">Games left</th><th class="num">Picked</th><th class="num">PF so far</th><th class="num">Projected rest of year</th><th class="num">Override</th></tr></thead><tbody>`;
+    const order = league.teams.map((t, i) => i).sort((a, b) => String(T(a).div).localeCompare(String(T(b).div)) || N(a).localeCompare(N(b)));
+    for (const i of order) {
+      const mine = rem.filter(g => g.a === i || g.b === i);
+      let pw = 0, pl = 0, pfProj = 0;
+      for (const g of mine) {
+        const p = picks[g.key] | 0; const opp = g.a === i ? g.b : g.a; const meA = g.a === i;
+        if (p) { const won = (p === 1) === meA; if (won) pw++; else pl++; pfProj += E.projectedPF(base, i, won); }
+        else { const q = winP(i, opp, g.week); pfProj += q * E.projectedPF(base, i, true) + (1 - q) * E.projectedPF(base, i, false); }
+      }
+      const unp = mine.length - pw - pl;
+      const pfO = overrides.pf[i];
+      html += `<tr><td class="teamcell">${esc(N(i))}</td><td class="num">${mine.length}</td><td class="num">${pw}-${pl}${unp ? `<span class="hint"> +${unp} open</span>` : ''}</td>
+        <td class="num">${base.state.pf[i].toFixed(1)}</td>
+        <td class="num">${pfProj.toFixed(1)}</td>
+        <td class="num"><input type="number" step="1" min="0" data-kind="pf" data-i="${i}" value="${pfO != null ? pfO : ''}" placeholder="${pfProj.toFixed(0)}" class="${pfO != null ? 'over' : ''}" aria-label="Override remaining points for ${esc(N(i))}"></td></tr>`;
+    }
+    $('advTable').innerHTML = html + '</tbody>';
+    if (ADMIN) { $('mgrSection').classList.remove('hidden'); renderManagerMap(); $('reportSection').classList.remove('hidden'); renderReport(); }
+    $('advTable').querySelectorAll('input').forEach(inp => inp.addEventListener('change', () => {
+      const i = Number(inp.dataset.i); const tgt = overrides[inp.dataset.kind];
+      if (inp.value === '' || isNaN(Number(inp.value))) delete tgt[i]; else tgt[i] = Number(inp.value);
+      scheduleRender();
+    }));
+  }
+  function renderManagerMap() {
+    const rows = league.teams.map((t, i) => `<tr class="${t.matchedBy ? '' : 'unmatched'}"><td>${esc(t.name)}</td><td>${esc(t.owner)}</td><td class="small muted">team ${esc(t.id)} · ${esc(t.ownerIds.join(', '))}</td><td class="teamcell">${esc(t.manager)}</td><td class="small muted">${t.matchedBy ? 'by ' + t.matchedBy : 'not in the list'}</td></tr>`).join('');
+    const unmatched = league.teams.filter(t => !t.matchedBy).length;
+    $('mgrTable').innerHTML = `<thead><tr><th>ESPN team</th><th>ESPN owner</th><th>Ids</th><th>Manager</th><th>Matched</th></tr></thead><tbody>${rows}</tbody>`;
+    $('mgrNote').textContent = unmatched ? `${unmatched} team${unmatched === 1 ? ' is' : 's are'} not matched to a manager name, so the ESPN owner name is shown instead. Fix the team name in the file's MANAGERS list, or lock by id.` : 'Every team is matched. To make this permanent regardless of team-name changes, copy the locked config and paste it over the MANAGERS list in the file.';
+  }
+  function lockedConfig() {
+    const lines = league.teams.map(t => `    { manager: ${JSON.stringify(t.manager)}, team_id: ${JSON.stringify(String(t.id))}, owner_id: ${JSON.stringify(t.ownerIds[0] || '')}, team: ${JSON.stringify(t.name)} },`);
+    return `const MANAGERS = [\n${lines.join('\n')}\n  ];`;
+  }
+
+  // ---------- workers: the simulation and the exact clinch search run off the main thread ----------
+  const WORKER_SRC = (() => {
+    const el = document.getElementById('engine-src'); const eng = el ? el.textContent : '';
+    return eng + `
+self.onmessage = e => {
+  const m = e.data; const E = self.Engine;
+  if (m.type === 'sim') {
+    const r = E.simulate(m.league, m.base, m.picks, m.overrides, m.nSims, 3, m.models, { fpFixed: m.fpFixed, leverage: true });
+    self.postMessage({ type: 'sim', id: m.id, tally: r.map(x => x), leverage: r.leverage, weekTally: r.weekTally });
+  } else if (m.type === 'exact') {
+    m.jobs.forEach((j, k) => {
+      const pk = j.extra ? Object.assign({}, m.picks, j.extra) : m.picks;
+      const r = E.exactCheck(m.league, m.base, pk, m.overrides, m.fpOrders, j.T, j.c, j.mode, m.budget);
+      self.postMessage({ type: 'exactResult', id: m.id, T: j.T, c: j.c, mode: j.mode, o: j.o, verdict: r.verdict, nodes: r.nodes, free: r.free, done: k + 1, total: m.jobs.length });
+    });
+    self.postMessage({ type: 'exactDone', id: m.id });
+  }
+};`;
+  })();
+  function makeWorker(onmsg) {
+    try { const w = new Worker(URL.createObjectURL(new Blob([WORKER_SRC], { type: 'text/javascript' }))); w.onmessage = onmsg; return w; }
+    catch (e) { console.warn('Web worker unavailable, running on the main thread', e); return null; }
+  }
+  let simWorker = null, simId = 0, exactWorker = null, exactId = 0, workersOk = true;
+  function runSimHere() {
+    const n = Number($('nsims').value) || 10000;
+    const r = E.simulate(league, base, picks, overrides, n, 3, models, { fpFixed: fpFixedNow(), leverage: true });
+    onSimResult(r, r.leverage, r.weekTally);
+  }
+  const plainLeague = () => league; // structured-clone safe (plain data)
+  function fpFixedNow() { const f = {}; for (const w in fpOrders) if (orders[w]) f[w] = E.fpFromOrder(orders[w], league.nTeams); return f; }
+
+  // probabilities
+  function scheduleSim() {
+    clearTimeout(simTimer);
+    simTimer = setTimeout(() => {
+      const n = Number($('nsims').value) || 10000;
+      const id = ++simId;
+      if (workersOk && simWorker === null) {
+        simWorker = makeWorker(onSimMessage);
+        if (simWorker) simWorker.onerror = ev => { console.warn('Simulation worker failed, running on the main thread', ev.message || ev); try { simWorker.terminate(); } catch (e) { /* ignore */ } simWorker = null; workersOk = false; runSimHere(); };
+      }
+      if (!workersOk || !simWorker) { workersOk = false; runSimHere(); return; }
+      try { simWorker.postMessage({ type: 'sim', id, league: plainLeague(), base, picks, overrides, nSims: n, models, fpFixed: fpFixedNow() }); }
+      catch (e) { console.warn('Could not hand the simulation to a worker', e); workersOk = false; runSimHere(); }
+    }, 120);
+  }
+  function onSimMessage(e) { if (e.data.type !== 'sim' || e.data.id !== simId) return; onSimResult(e.data.tally, e.data.leverage, e.data.weekTally); }
+  function onSimResult(tally, leverage, weekTally) {
+    sim = tally; sim.leverage = leverage; sim.weekTally = weekTally || {};
+    computeHeat();
+    renderProb(); renderSeeds();
+    if (view === 'week') renderWeek(); else if (view === 'scen') renderScenarios();
+    scheduleExact();
+    scheduleWeekScen();
+  }
+
+  // playoff heat per unpicked game: how far this result swings chances across the league, 0-10 relative to the hottest game
+  function computeHeat() {
+    heat = {};
+    if (!sim || !sim.leverage) return;
+    const W = [1, 0.5, 0.5, 0.25];
+    const raw = sim.leverage.map(g => { let sw = 0; for (let i = 0; i < league.nTeams; i++) for (let c = 0; c < 4; c++) sw += W[c] * Math.abs(g.pa[i][c] - g.pb[i][c]); return sw; });
+    const mx = Math.max(0, ...raw);
+    sim.leverage.forEach((g, k) => { heat[g.key] = mx > 0 ? Math.round(10 * raw[k] / mx) : 0; });
+  }
+
+  // exact clinch / elimination, only where the simulation leaves it open (100% or 0%)
+  function exactKey() { return `${E.encodeScenario(league, picks, overrides, fpOrders)}`; }
+  function scheduleExact() {
+    if (!sim) return;
+    const key = exactKey();
+    if (exact.key !== key) exact = { key, res: {} };
+    const jobs = [];
+    for (let i = 0; i < league.nTeams; i++) {
+      const p = [sim[i].playoffs, sim[i].div, sim[i].bye, sim[i].seeds[1]];
+      for (let c = 0; c < 4; c++) {
+        const k = `${i}:${c}`;
+        if (exact.res[k] !== undefined) continue;
+        if (p[c] >= 1 - 1e-9) jobs.push({ T: i, c, mode: 'clinch' });
+        else if (p[c] <= 1e-9) jobs.push({ T: i, c, mode: 'elim' });
+        else exact.res[k] = 'alive';   // a simulated finish is a real counterexample both ways
+      }
+    }
+    if (exactWorker) { exactWorker.terminate(); exactWorker = null; }
+    if (!jobs.length) { exactBusy = false; exactNote = ''; renderExactDependents(); return; }
+    exactWorker = workersOk ? makeWorker(onExactMessage) : null;
+    if (!exactWorker) { exactBusy = false; exactNote = 'Exact clinch checks are unavailable in this browser.'; jobs.forEach(j => { exact.res[`${j.T}:${j.c}`] = 'unknown'; }); renderExactDependents(); return; }
+    exactWorker.onerror = ev => { console.warn('Clinch worker failed', ev.message || ev); exactBusy = false; exactNote = 'Exact clinch checks failed to run.'; jobs.forEach(j => { if (exact.res[`${j.T}:${j.c}`] === undefined) exact.res[`${j.T}:${j.c}`] = 'unknown'; }); renderExactDependents(); };
+    const id = ++exactId;
+    exactBusy = true; exactNote = `Checking ${jobs.length} possible clinch${jobs.length === 1 ? '' : 'es'}…`; renderExactDependents();
+    exactWorker.postMessage({ type: 'exact', id, league: plainLeague(), base, picks, overrides, fpOrders, jobs, budget: 4e6 });
+  }
+  function onExactMessage(e) {
+    const m = e.data; if (m.id !== exactId) return;
+    if (m.type === 'exactResult') {
+      const k = `${m.T}:${m.c}`;
+      exact.res[k] = m.verdict === true ? (m.mode === 'clinch' ? 'clinched' : 'eliminated') : m.verdict === false ? 'alive' : 'unknown';
+      exactNote = `Checking possible clinches… ${m.done} of ${m.total}`;
+      if (m.done % 2 === 0 || m.done === m.total) renderExactDependents();
+    } else if (m.type === 'exactDone') { exactBusy = false; exactNote = ''; renderExactDependents(); }
+  }
+  function exactStatus(i, c) { return (exact.res && exact.res[`${i}:${c}`]) || 'pending'; }
+
+  // ---------- this week's clinching scenarios ----------
+  // For the open week on screen: which combinations of this week's results would clinch or eliminate something,
+  // whatever happens afterwards. Candidate combinations come from the simulation (a clinch needs every sampled
+  // finish with that combination to hold; an elimination needs none to), then each candidate is checked exactly.
+  let weekScen = { key: null, week: null, res: {}, busy: false, note: '', total: 0, done: 0 };
+  const wsOpen = {};
+  let scenWorker = null, scenId = 0;
+  function scheduleWeekScen() {
+    const week = curTab; const wk = league.weeks.find(w => w.week === week);
+    if (!sim || !sim.weekTally || !wk || wk.locked || !wsOpen[week] || view !== 'week') return;
+    const key = `${week}|${exactKey()}`;
+    if (weekScen.key === key) return;
+    const wt = sim.weekTally[String(week)];
+    if (scenWorker) { scenWorker.terminate(); scenWorker = null; }
+    weekScen = { key, week, res: {}, busy: false, note: '', total: 0, done: 0, open: wt ? wt.open : [] };
+    if (!wt) { renderWeekScen(); return; }
+    const n = league.nTeams, k = wt.open.length, N2 = 1 << k;
+    const jobs = [];
+    for (let T = 0; T < n; T++) for (let c = 0; c < 4; c++) {
+      const root = exactStatus(T, c);
+      if (root === 'clinched' || root === 'eliminated') continue;    // settled already, nothing this week decides
+      for (let o = 0; o < N2; o++) {
+        const cnt = wt.n[o], h = wt.hold[o * n * 4 + T * 4 + c];
+        const extra = {}; wt.open.forEach((gi, b) => { extra[`${week}:${gi}`] = (o >> b) & 1 ? 1 : 2; });
+        if (cnt === 0 || h === cnt) jobs.push({ T, c, mode: 'clinch', o, extra });
+        if (cnt === 0 || h === 0) jobs.push({ T, c, mode: 'elim', o, extra });
+      }
+    }
+    if (!jobs.length) { renderWeekScen(); return; }
+    scenWorker = workersOk ? makeWorker(onScenMessage) : null;
+    if (!scenWorker) { weekScen.note = 'Needs a browser with web workers.'; renderWeekScen(); return; }
+    const id = ++scenId;
+    weekScen.busy = true; weekScen.total = jobs.length; weekScen.note = `Checking ${jobs.length} combinations…`; renderWeekScen();
+    scenWorker.onerror = () => { weekScen.busy = false; weekScen.note = 'The check failed to run.'; renderWeekScen(); };
+    scenWorker.postMessage({ type: 'exact', id, league: plainLeague(), base, picks, overrides, fpOrders, jobs, budget: 1.5e6 });
+  }
+  function onScenMessage(e) {
+    const m = e.data; if (m.id !== scenId) return;
+    if (m.type === 'exactResult') {
+      if (m.verdict === true) { const k = `${m.T}:${m.c}:${m.mode}`; (weekScen.res[k] = weekScen.res[k] || []).push(m.o); }
+      weekScen.done = m.done; weekScen.note = `Checking combinations… ${m.done} of ${m.total}`;
+      if (m.done % 10 === 0) renderWeekScen();
+    } else if (m.type === 'exactDone') { weekScen.busy = false; weekScen.note = ''; renderWeekScen(); }
+  }
+  function weekScenHtml(wk) {
+    const open = wsOpen[wk.week];
+    return `<details class="fpo wscen" id="wscen" ${open ? 'open' : ''}><summary><span class="ttl">Clinching scenarios, week ${wk.week}</span><span class="hint" id="wscenHint"></span></summary><div id="wscenBody"></div></details>`;
+  }
+  function renderWeekScen() {
+    const body = $('wscenBody'); const hint = $('wscenHint'); if (!body) return;
+    const wk = league.weeks.find(w => w.week === curTab); if (!wk || wk.locked) return;
+    if (!wsOpen[wk.week]) { if (hint) hint.textContent = ''; return; }
+    if (!sim) { body.innerHTML = '<p class="fpnote">Turn on Live odds to work out this week\'s scenarios.</p>'; return; }
+    const openGi = wk.games.map((g, gi) => gi).filter(gi => !(picks[`${wk.week}:${gi}`] | 0));
+    if (!openGi.length) { body.innerHTML = '<p class="fpnote">Every game this week is picked. The Scenarios tab shows what those picks settle.</p>'; if (hint) hint.textContent = ''; return; }
+    if (weekScen.week !== wk.week || weekScen.key !== `${wk.week}|${exactKey()}`) { body.innerHTML = '<p class="fpnote">Working…</p>'; return; }
+    const what = ['a playoff spot', 'the division', 'a bye', 'the 1 seed'];
+    const games = weekScen.open.map(gi => wk.games[gi]);
+    const cond = (pat, T) => pat.map((v, b) => { if (!v) return null; const g = games[b]; const w = v === 1 ? g.a : g.b, l = v === 1 ? g.b : g.a; if (w === T) return `${N(T)} wins`; if (l === T) return `${N(T)} loses`; return `${N(w)} beats ${N(l)}`; }).filter(Boolean);
+    const rows = [];
+    const teamOrder = [...seeding.seeds.map(x => x.team), ...seeding.out];
+    for (const T of teamOrder) for (const mode of ['clinch', 'elim']) for (let c = 0; c < 4; c++) {
+      if (mode === 'elim' && c !== 0) continue;
+      const os = weekScen.res[`${T}:${c}:${mode}`]; if (!os || !os.length) continue;
+      const pats = E.implicants(games.length, os);
+      const txt = pats.map(p => { const cs = cond(p, T); return cs.length ? cs.join(' and ') : 'any results'; });
+      rows.push(`<li><b>${esc(N(T))}</b> ${mode === 'clinch' ? `clinches ${what[c]}` : 'is eliminated from the playoffs'} if ${txt.map(t => `<span class="sc">${esc(t)}</span>`).join(' <em>or</em> ')}</li>`);
+    }
+    const status = weekScen.busy ? `<p class="fpnote">${esc(weekScen.note)}</p>` : weekScen.note ? `<p class="fpnote">${esc(weekScen.note)}</p>` : '';
+    body.innerHTML = `<p class="fpnote">What this week's open results alone would settle, whatever happens in later weeks. Already-settled outcomes are left out; see the Scenarios tab for those.</p>${status}${rows.length ? `<ul class="sclist">${rows.join('')}</ul>` : (weekScen.busy ? '' : '<p class="fpnote">Nothing can be clinched or lost this week under these picks.</p>')}`;
+    if (hint) hint.textContent = weekScen.busy ? 'checking…' : rows.length ? `${rows.length} scenario${rows.length === 1 ? '' : 's'}` : 'none this week';
+  }
+  function renderExactDependents() { renderProb(); if (view === 'scen') renderScenarios(); }
+  function renderProb() {
+    if (!sim || !liveProb) { $('probTable').innerHTML = `<tbody><tr><td class="muted small">Turn on Live to simulate the unpicked games.</td></tr></tbody>`; return; }
+    const order = league.teams.map((t, i) => i).sort((a, b) => sim[b].playoffs - sim[a].playoffs || sim[a].avgFinish - sim[b].avgFinish);
+    const cell = (p, cls) => `<td class="num barcell"><i style="width:${Math.round(p * 100)}%"></i><b class="${cls || ''}">${pctS(p)}</b></td>`;
+    let html = '<thead><tr><th>Team</th><th class="num">Playoffs</th><th class="num">Division</th><th class="num">Bye (1–2)</th><th class="num">#1 seed</th><th class="num" title="Average finishing position (1–12) across all simulations. 1–6 are playoff seeds; 7–12 are the non-playoff teams ordered by record, then points for.">Avg finish</th></tr></thead><tbody>';
+    for (const i of order) {
+      const p = sim[i]; const st = exactStatus(i, 0); const cls = st === 'clinched' ? 'clinch' : st === 'eliminated' ? 'elim' : '';
+      html += `<tr><td class="teamcell">${esc(N(i))}</td>${cell(p.playoffs, cls)}${cell(p.div)}${cell(p.bye)}${cell(p.seeds[1])}<td class="num" title="${p.avgSeed ? `Average seed when making the playoffs: ${p.avgSeed.toFixed(1)}` : 'Never makes the playoffs in these simulations'}">${p.avgFinish.toFixed(1)}</td></tr>`;
+    }
+    $('probTable').innerHTML = html + '</tbody>';
+    const note = $('probNote'); if (note) note.textContent = exactBusy ? exactNote : (exactNote || 'Orange marks a playoff spot clinched, and red one lost, under every possible finish, not just in the simulations.');
+  }
+
+  // ---------- wiring ----------
+  function setView(v) {
+    view = v;
+    const map = { week: 'vWeek', team: 'vTeam', scen: 'vScen', adv: 'vAdv', track: 'vTrack' };
+    for (const k in map) $(map[k]).setAttribute('aria-pressed', v === k);
+    $('weekView').classList.toggle('hidden', v !== 'week'); $('teamView').classList.toggle('hidden', v !== 'team'); $('scenView').classList.toggle('hidden', v !== 'scen'); $('advView').classList.toggle('hidden', v !== 'adv'); $('trackView').classList.toggle('hidden', v !== 'track');
+    $('pickTools').classList.toggle('hidden', v === 'track' || v === 'scen');
+    renderAll();
+  }
+
+  // ---------- scenarios ----------
+  function renderScenarios() {
+    const s = scenario.state;
+    const order = [...seeding.seeds.map(x => x.team), ...seeding.out];
+    const free = E.remainingGames(league).filter(g => !(picks[g.key] | 0)).length;
+    const lab = { clinched: '<b class="st clinch">Clinched</b>', eliminated: '<b class="st elim">Eliminated</b>', alive: '<span class="st alive">Alive</span>', unknown: '<span class="st alive" title="Too many open games to check every finish; pick more games to narrow it">Unverified</span>', pending: '<span class="st alive muted">…</span>' };
+    let html = `<thead><tr><th>Team</th><th class="num">W-L</th>${CRIT_NAMES.map(c => `<th>${c}</th>`).join('')}</tr></thead><tbody>`;
+    for (const i of order) html += `<tr><td class="teamcell">${esc(N(i))}</td><td class="num">${recOf(s, i)}</td>${[0, 1, 2, 3].map(c => { const st = sim ? exactStatus(i, c) : 'pending'; const p = sim ? [sim[i].playoffs, sim[i].div, sim[i].bye, sim[i].seeds[1]][c] : null; const cell = st === 'alive' ? `<span class="num" title="Chance in the simulation">${pctS(p)}</span>` : st === 'unknown' && p != null ? `<span class="num" title="Too many open games to check every finish">${pctS(p)}*</span>` : lab[st]; return `<td>${cell}</td>`; }).join('')}</tr>`;
+    $('clinchTable').innerHTML = html + '</tbody>';
+    const lines = [];
+    if (sim) {
+      const by = st => [0, 1, 2, 3].map(c => ({ c, teams: order.filter(i => exactStatus(i, c) === st) }));
+      const what = ['a playoff spot', 'the division', 'a bye', 'the 1 seed'];
+      by('clinched').forEach(x => { if (x.teams.length) lines.push(`${x.teams.map(N).join(', ')} ${x.teams.length === 1 ? 'has' : 'have'} clinched ${what[x.c]}.`); });
+      const outP = order.filter(i => exactStatus(i, 0) === 'eliminated'); if (outP.length) lines.push(`${outP.map(N).join(', ')} ${outP.length === 1 ? 'is' : 'are'} eliminated from playoff contention.`);
+      [1, 2, 3].forEach(c => { const t = order.filter(i => exactStatus(i, c) === 'eliminated' && exactStatus(i, 0) !== 'eliminated'); if (t.length) lines.push(`Out of ${what[c]}: ${t.map(N).join(', ')}.`); });
+    }
+    $('clinchSummary').innerHTML = lines.length ? lines.map(l => `<p>${esc(l)}</p>`).join('') : `<p class="muted">Nothing is settled yet with ${free} game${free === 1 ? '' : 's'} still open under these picks.</p>`;
+    $('clinchNote').textContent = (exactBusy ? exactNote + ' ' : '') + `A clinch or elimination here holds for every result of the ${free} open game${free === 1 ? '' : 's'} and every way the Points For tiebreaker could fall. Everything else shows the simulated chance (an asterisk means it could not be checked exhaustively).`;
+    // what matters for a team
+    const sel = $('scenTeam');
+    const tOrder = league.teams.map((_, i) => i).sort((a, b) => N(a).localeCompare(N(b)));
+    sel.innerHTML = tOrder.map(i => `<option value="${i}" ${i === scenTeam ? 'selected' : ''}>${esc(N(i))}</option>`).join('');
+    document.querySelectorAll('#scenView [data-crit]').forEach(b => b.setAttribute('aria-pressed', Number(b.dataset.crit) === scenCrit));
+    const body = $('matterTable');
+    if (!sim || !sim.leverage) { body.innerHTML = '<tbody><tr><td class="muted small">Turn on Live odds to rank the matchups.</td></tr></tbody>'; return; }
+    const T = scenTeam, c = scenCrit;
+    const now = [sim[T].playoffs, sim[T].div, sim[T].bye, sim[T].seeds[1]][c];
+    $('matterNow').textContent = `${N(T)}: ${pctS(now)} for ${CRIT_NAMES[c].toLowerCase()} right now`;
+    const rows = sim.leverage.map(g => ({ g, d: g.pa[T][c] - g.pb[T][c] })).filter(r => Math.abs(r.d) >= 0.005).sort((a, b) => Math.abs(b.d) - Math.abs(a.d)).slice(0, 15);
+    if (!rows.length) { body.innerHTML = `<tbody><tr><td class="muted small">No open game moves ${esc(N(T))}'s ${CRIT_NAMES[c].toLowerCase()} chances.</td></tr></tbody>`; return; }
+    let h = `<thead><tr><th>Wk</th><th>Matchup</th><th>Root for</th><th class="num">If they win</th><th class="num">If they lose</th><th class="num">Swing</th></tr></thead><tbody>`;
+    for (const { g, d } of rows) {
+      const fav = d > 0 ? g.a : g.b, hiP = Math.max(g.pa[T][c], g.pb[T][c]), loP = Math.min(g.pa[T][c], g.pb[T][c]);
+      const mine = g.a === T || g.b === T;
+      h += `<tr><td class="num muted">${g.week}</td><td>${esc(N(g.a))} v ${esc(N(g.b))}</td><td class="teamcell">${mine ? '<b class="st clinch">Win</b>' : esc(N(fav))}</td><td class="num">${pctS(hiP)}</td><td class="num">${pctS(loP)}</td><td class="num"><b>${Math.round(Math.abs(d) * 100)}</b></td></tr>`;
+    }
+    body.innerHTML = h + '</tbody>';
+  }
+  $('scenTeam').addEventListener('change', () => { scenTeam = Number($('scenTeam').value); renderScenarios(); });
+  document.querySelectorAll('#scenView [data-crit]').forEach(b => b.addEventListener('click', () => { scenCrit = Number(b.dataset.crit); renderScenarios(); }));
+  function setNameMode(m) {
+    nameMode = m; try { localStorage.setItem('dot:names', m); } catch (e) { /* ignore */ }
+    $('nTeam').setAttribute('aria-pressed', m === 'team'); $('nMgr').setAttribute('aria-pressed', m === 'mgr');
+    if (scenario) renderAll();
+  }
+  // light / dark toggle (stored; otherwise follows the system)
+  function applyTheme(t) {
+    if (t === 'dark' || t === 'light') document.documentElement.setAttribute('data-theme', t); else document.documentElement.removeAttribute('data-theme');
+    const dark = t === 'dark' || (!t && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    $('btnTheme').textContent = dark ? 'Light' : 'Dark';
+  }
+  let theme = null; try { theme = localStorage.getItem('dot:theme'); } catch (e) { /* ignore */ }
+  applyTheme(theme);
+  $('btnTheme').addEventListener('click', () => {
+    const dark = document.documentElement.getAttribute('data-theme') === 'dark' || (!document.documentElement.getAttribute('data-theme') && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    theme = dark ? 'light' : 'dark'; try { localStorage.setItem('dot:theme', theme); } catch (e) { /* ignore */ }
+    applyTheme(theme);
+  });
+  // outside-looking-in toggle, remembered
+  try { $('outsideD').open = localStorage.getItem('dot:outside') === '1'; } catch (e) { /* ignore */ }
+  $('outsideD').addEventListener('toggle', () => { try { localStorage.setItem('dot:outside', $('outsideD').open ? '1' : '0'); } catch (e) { /* ignore */ } });
+  $('nTeam').addEventListener('click', () => setNameMode('team'));
+  $('nMgr').addEventListener('click', () => setNameMode('mgr'));
+  $('btnCopyMgr').addEventListener('click', async () => {
+    const txt = lockedConfig();
+    try { await navigator.clipboard.writeText(txt); toast('Locked config copied'); } catch (e) { window.prompt('Copy this', txt); }
+  });
+  $('vWeek').addEventListener('click', () => setView('week'));
+  $('vTeam').addEventListener('click', () => setView('team'));
+  $('vScen').addEventListener('click', () => setView('scen'));
+  $('vAdv').addEventListener('click', () => setView('adv'));
+  $('vTrack').addEventListener('click', () => setView('track'));
+  $('btnFav').addEventListener('click', () => { E.remainingGames(league).forEach(g => { if (!picks[g.key]) picks[g.key] = winP(g.a, g.b, g.week) >= 0.5 ? 1 : 2; }); scheduleRender(); });
+  $('btnRefresh').addEventListener('click', () => location.reload());
+  $('btnClear').addEventListener('click', () => { picks = {}; fpOrders = {}; scheduleRender(); });
+  $('btnReset').addEventListener('click', () => { picks = {}; overrides = { fp: {}, pf: {} }; fpOrders = {}; scheduleRender(); toast('Back to current standings. Undo brings the scenario back'); });
+  $('btnUndo').addEventListener('click', undo);
+  $('btnRedo').addEventListener('click', redo);
+  document.addEventListener('keydown', e => {
+    if (!(e.ctrlKey || e.metaKey) || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+    if (e.key === 'z' && !e.shiftKey) { e.preventDefault(); undo(); }
+    else if ((e.key === 'z' && e.shiftKey) || e.key === 'y') { e.preventDefault(); redo(); }
+  });
+  $('btnShare').addEventListener('click', async () => {
+    const url = shareUrl();
+    try { await navigator.clipboard.writeText(url); toast('Link copied'); }
+    catch (e) { window.prompt('Copy this link', url); }
+  });
+  $('btnProb').addEventListener('click', () => { liveProb = !liveProb; $('btnProb').setAttribute('aria-pressed', liveProb); if (liveProb) scheduleSim(); else { sim = null; heat = {}; if (exactWorker) { exactWorker.terminate(); exactWorker = null; } exactBusy = false; renderProb(); renderSeeds(); if (view === 'week') renderWeek(); else if (view === 'scen') renderScenarios(); } });
+  $('nsims').addEventListener('change', () => { if (liveProb) scheduleSim(); });
+  window.addEventListener('hashchange', () => { if (!league) return; restore(); renderAll(); });
+
+  // ---------- season history (results to date only, fixed seed) ----------
+  const HIST_SIMS = 1500;
+  function completedWeeks() { return league.weeks.filter(w => w.locked).map(w => w.week); }
+  function histLabel(X) { return (X === league.cur && !league.weeks.find(w => w.week === X).locked) ? `${X} (in progress)` : String(X); }
+  function ensureHistory(weeks, onProgress, onDone) {
+    const todo = weeks.filter(w => !histCache[w]);
+    if (!todo.length) { onDone(); return; }
+    if (histRunning) { histWanted = true; return; }
+    histRunning = true;
+    let k = 0;
+    const step = () => {
+      const w = todo[k];
+      onProgress(k, todo.length, w);
+      try { histCache[w] = E.historyPoint(league, w, HIST_SIMS, N); } catch (e) { console.error(e); }
+      k++;
+      if (k < todo.length) setTimeout(step, 0);
+      else { histRunning = false; onDone(); if (histWanted) { histWanted = false; } }
+    };
+    setTimeout(step, 0);
+  }
+  function fmtDelta(prev, cur) { if (prev == null) return '(-)'; const d = prev - cur; return d === 0 ? '(-)' : `(${d > 0 ? '+' : ''}${d})`; }
+  function fmtDeltaPts(prev, cur) { if (prev == null) return '(-)'; const d = Math.round(cur * 100) - Math.round(prev * 100); return d === 0 ? '(-)' : `(${d > 0 ? '+' : ''}${d})`; }
+
+  function renderReport() {
+    const sel = $('reportWeek');
+    const opts = completedWeeks().slice();
+    const curWk = league.weeks.find(w => w.week === league.cur);
+    if (curWk && !curWk.locked) opts.push(league.cur);
+    if (!opts.length) { $('reportStatus').textContent = 'No completed weeks yet.'; return; }
+    const prevVal = Number(sel.value);
+    sel.innerHTML = opts.map(w => `<option value="${w}">${histLabel(w)}</option>`).join('');
+    const done = completedWeeks(); const dflt = done.length ? done[done.length - 1] : opts[opts.length - 1];
+    sel.value = String(opts.includes(prevVal) ? prevVal : dflt);
+    if (!sel.dataset.wired) { sel.dataset.wired = '1'; sel.addEventListener('change', fillReport); document.querySelectorAll('[data-copy]').forEach(b => b.addEventListener('click', async () => { const t = $(b.dataset.copy).value; try { await navigator.clipboard.writeText(t); toast('Copied'); } catch (e) { window.prompt('Copy this', t); } })); }
+    fillReport();
+  }
+  function fillReport() {
+    const X = Number($('reportWeek').value); const P = X - 1;
+    const need = P >= 1 ? [P, X] : [X];
+    $('reportStatus').textContent = 'Computing…';
+    ensureHistory(need, (k, n, w) => { $('reportStatus').textContent = `Simulating week ${w} (${k + 1} of ${n})…`; }, () => {
+      const cur = histCache[X], prev = histCache[P];
+      if (!cur) { $('reportStatus').textContent = 'Could not compute.'; return; }
+      $('reportStatus').textContent = prev ? `Changes are against week ${P}.` : 'First week: no changes to show.';
+      const n = league.nTeams;
+      const order = league.teams.map((_, i) => i).sort((a, b) => cur.finish[a] - cur.finish[b]);
+      const lines1 = [`Playoff Standings after Week ${X}:`, ''];
+      order.forEach(i => { lines1.push(`${cur.finish[i]}. ${N(i)} ${fmtDelta(prev ? prev.finish[i] : null, cur.finish[i])}`); if (cur.finish[i] === 6) lines1.push(''); });
+      $('rep1').value = lines1.join('\n');
+      const byP = league.teams.map((_, i) => i).sort((a, b) => cur.odds[b].playoffs - cur.odds[a].playoffs || cur.finish[a] - cur.finish[b]);
+      const lines2 = [`Playoff Probability after Week ${X}:`, ''];
+      byP.forEach((i, k) => lines2.push(`${k + 1}. ${N(i)} ${Math.round(cur.odds[i].playoffs * 100)}% ${fmtDeltaPts(prev ? prev.odds[i].playoffs : null, cur.odds[i].playoffs)}`));
+      $('rep2').value = lines2.join('\n');
+      const lines3 = [`Odds after Week ${X} (playoffs · division · bye · 1 seed):`, ''];
+      byP.forEach((i, k) => { const o = cur.odds[i]; lines3.push(`${k + 1}. ${N(i)}: ${Math.round(o.playoffs * 100)}% · ${Math.round(o.div * 100)}% · ${Math.round(o.bye * 100)}% · ${Math.round(o.seeds[1] * 100)}%`); });
+      const clinched = byP.filter(i => cur.odds[i].playoffs >= 0.9995).map(N), gone = byP.filter(i => cur.odds[i].playoffs <= 0.0005).map(N);
+      if (clinched.length || gone.length) { lines3.push(''); if (clinched.length) lines3.push(`Clinched: ${clinched.join(', ')}`); if (gone.length) lines3.push(`Eliminated: ${gone.join(', ')}`); }
+      if (prev) {
+        const movers = league.teams.map((_, i) => ({ i, d: cur.odds[i].playoffs - prev.odds[i].playoffs })).sort((a, b) => Math.abs(b.d) - Math.abs(a.d)).slice(0, 3).filter(m => Math.abs(m.d) >= 0.05);
+        if (movers.length) { lines3.push(''); lines3.push(`Biggest movers: ${movers.map(m => `${N(m.i)} ${m.d > 0 ? '+' : ''}${Math.round(m.d * 100)}`).join(', ')}`); }
+      }
+      $('rep3').value = lines3.join('\n');
+      ['rep1', 'rep2', 'rep3'].forEach(id => { const t = $(id); t.style.height = 'auto'; t.style.height = (t.scrollHeight + 4) + 'px'; });
+    });
+  }
+
+  // ---------- tracker ----------
+  const SERIES = ['var(--s1)', 'var(--s2)', 'var(--s3)', 'var(--s4)', 'var(--s5)', 'var(--s6)'];
+  function renderTracker() {
+    const weeks = completedWeeks();
+    const leg = $('trackLegend');
+    const order = league.teams.map((_, i) => i).sort((a, b) => N(a).localeCompare(N(b)));
+    leg.innerHTML = order.map(i => { const k = trackSel.indexOf(i); return `<button type="button" data-i="${i}" aria-pressed="${k >= 0}"><span class="sw" style="${k >= 0 ? `background:${SERIES[k]}` : ''}"></span>${esc(N(i))}</button>`; }).join('');
+    leg.querySelectorAll('button').forEach(b => b.addEventListener('click', () => {
+      const i = Number(b.dataset.i); const k = trackSel.indexOf(i);
+      if (k >= 0) trackSel.splice(k, 1); else { if (trackSel.length >= 6) { toast('Up to six teams at a time'); return; } trackSel.push(i); }
+      renderTracker();
+    }));
+    document.querySelectorAll('.tracker [data-metric]').forEach(b => { b.setAttribute('aria-pressed', b.dataset.metric === trackMetric); if (!b.dataset.wired) { b.dataset.wired = '1'; b.addEventListener('click', () => { trackMetric = b.dataset.metric; renderTracker(); }); } });
+    if (!weeks.length) { $('trackProgress').classList.remove('hidden'); $('trackProgress').textContent = 'No completed weeks yet.'; return; }
+    const pr = $('trackProgress');
+    ensureHistory(weeks, (k, n, w) => { pr.classList.remove('hidden'); pr.textContent = `Working out week ${w} (${k + 1} of ${n})…`; }, () => {
+      pr.classList.add('hidden');
+      const pts = weeks.filter(w => histCache[w]).map(w => histCache[w]);
+      drawBump($('vizSeed'), $('tipSeed'), pts);
+      drawProb($('vizProb'), $('tipProb'), pts);
+      drawHistTable(pts);
+    });
+  }
+  function metricOf(o) { return trackMetric === 'one' ? o.seeds[1] : o[trackMetric]; }
+  function metricName() { return { playoffs: 'Playoff berth', div: 'Division', bye: 'Bye', one: '1 seed' }[trackMetric]; }
+  function colorOf(i) { const k = trackSel.indexOf(i); return k >= 0 ? SERIES[k] : null; }
+  function svgFrame(svg, W, H) { svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.innerHTML = ''; }
+  function el(tag, attrs, text) { const e = document.createElementNS('http://www.w3.org/2000/svg', tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text != null) e.textContent = text; return e; }
+  function drawLines(svg, tip, pts, yOf, yTicks, fmtY, W, H, pad) {
+    svgFrame(svg, W, H);
+    const n = league.nTeams, xs = pts.map((p, k) => pad.l + (pts.length === 1 ? 0 : k * (W - pad.l - pad.r) / (pts.length - 1)));
+    const g = el('g', { class: 'grid' }); yTicks.forEach(t => { const y = yOf(t); g.appendChild(el('line', { x1: pad.l, x2: W - pad.r, y1: y, y2: y })); }); svg.appendChild(g);
+    const ax = el('g', { class: 'axis' });
+    yTicks.forEach(t => ax.appendChild(el('text', { x: pad.l - 8, y: yOf(t) + 4, 'text-anchor': 'end' }, fmtY(t))));
+    pts.forEach((p, k) => ax.appendChild(el('text', { x: xs[k], y: H - pad.b + 16, 'text-anchor': 'middle' }, `Wk ${p.week}`)));
+    svg.appendChild(ax);
+    const vals = i => pts.map(p => yOf(p.v[i]));
+    const hiSet = new Set(trackSel);
+    const draw = (i, hi) => {
+      const d = smoothPath(xs, vals(i));
+      const ln = el('path', { d, class: `ln ${hi ? 'hi' : ''}` }); if (hi) ln.style.stroke = colorOf(i); svg.appendChild(ln);
+      if (hi) pts.forEach((p, k) => {
+        const lastPt = k === pts.length - 1;
+        const c = el('circle', { cx: xs[k], cy: yOf(p.v[i]), r: lastPt ? 5 : 3.5, class: `dot ${lastPt ? 'last' : ''}` }); c.style.stroke = colorOf(i); if (lastPt) c.style.fill = colorOf(i); svg.appendChild(c);
+      });
+    };
+    for (let i = 0; i < n; i++) if (!hiSet.has(i)) draw(i, false);
+    trackSel.forEach(i => draw(i, true));
+    // end labels, nudged apart
+    const last = pts[pts.length - 1];
+    const labs = league.teams.map((_, i) => ({ i, y: yOf(last.v[i]) })).sort((a, b) => a.y - b.y);
+    for (let k = 1; k < labs.length; k++) if (labs[k].y - labs[k - 1].y < 12) labs[k].y = labs[k - 1].y + 12;
+    const floor = H - pad.b - 2; for (let k = labs.length - 1; k >= 0; k--) { const lim = k === labs.length - 1 ? floor : labs[k + 1].y - 12; if (labs[k].y > lim) labs[k].y = lim; }
+    labs.forEach(l => { const hi = hiSet.has(l.i); const t = el('text', { x: xs[xs.length - 1] + 9, y: l.y + 4, class: `lbl ${hi ? 'hi' : ''}` }, hi ? `${N(l.i)} · ${fmtY(last.v[l.i], true)}` : N(l.i)); if (hi) t.style.fill = colorOf(l.i); svg.appendChild(t); });
+    // hover
+    const hov = el('g', { class: 'hover' }); const hl = el('line', { y1: pad.t, y2: H - pad.b, x1: 0, x2: 0 }); hov.appendChild(hl); hov.style.display = 'none'; svg.appendChild(hov);
+    const wrap = svg.parentElement;
+    svg.onmousemove = e => {
+      const r = svg.getBoundingClientRect(); const x = (e.clientX - r.left) * W / r.width;
+      let k = 0; xs.forEach((xx, j) => { if (Math.abs(xx - x) < Math.abs(xs[k] - x)) k = j; });
+      hl.setAttribute('x1', xs[k]); hl.setAttribute('x2', xs[k]); hov.style.display = '';
+      const p = pts[k]; const show = trackSel.length ? trackSel : league.teams.map((_, i) => i);
+      const rows = show.slice().sort((a, b) => (trackMetric && yOf(p.v[a]) - yOf(p.v[b]))).map(i => `${N(i)}: ${fmtY(p.v[i], true)}`);
+      tip.innerHTML = `<b>Week ${p.week}</b><br>${rows.join('<br>')}`; tip.style.display = 'block';
+      const tx = e.clientX - r.left + 14, ty = e.clientY - r.top + 14;
+      tip.style.left = `${Math.min(tx, wrap.clientWidth - tip.offsetWidth - 4)}px`; tip.style.top = `${ty}px`;
+    };
+    svg.onmouseleave = () => { hov.style.display = 'none'; tip.style.display = 'none'; };
+  }
+  // Monotone cubic (Fritsch–Carlson) through the points: smooth, with no overshoot past the data
+  function smoothPath(xs, ys) {
+    const n = xs.length; if (n < 2) return n ? `M${xs[0]},${ys[0]}` : '';
+    const dx = [], dy = [], m = [];
+    for (let k = 0; k < n - 1; k++) { dx.push(xs[k + 1] - xs[k]); dy.push((ys[k + 1] - ys[k]) / (xs[k + 1] - xs[k])); }
+    m[0] = dy[0]; m[n - 1] = dy[n - 2];
+    for (let k = 1; k < n - 1; k++) m[k] = dy[k - 1] * dy[k] <= 0 ? 0 : (dy[k - 1] + dy[k]) / 2;
+    for (let k = 0; k < n - 1; k++) { if (dy[k] === 0) { m[k] = 0; m[k + 1] = 0; continue; } const a = m[k] / dy[k], b = m[k + 1] / dy[k], s = a * a + b * b; if (s > 9) { const t = 3 / Math.sqrt(s); m[k] = t * a * dy[k]; m[k + 1] = t * b * dy[k]; } }
+    let d = `M${xs[0].toFixed(1)},${ys[0].toFixed(1)}`;
+    for (let k = 0; k < n - 1; k++) { const h = dx[k]; d += ` C${(xs[k] + h / 3).toFixed(1)},${(ys[k] + m[k] * h / 3).toFixed(1)} ${(xs[k + 1] - h / 3).toFixed(1)},${(ys[k + 1] - m[k + 1] * h / 3).toFixed(1)} ${xs[k + 1].toFixed(1)},${ys[k + 1].toFixed(1)}`; }
+    return d;
+  }
+  function drawBump(svg, tip, hist) {
+    const W = 760, H = 340, pad = { l: 32, r: 150, t: 12, b: 28 };
+    const pts = hist.map(h => ({ week: h.week, v: h.finish }));
+    const yOf = v => pad.t + (v - 1) * (H - pad.t - pad.b) / 11;
+    drawLines(svg, tip, pts, yOf, [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12], (v, long) => long ? `${v}${v <= 6 ? ' (in)' : ''}` : String(v), W, H, pad);
+    // playoff line between 6 and 7
+    const y = yOf(6.5); const cut = el('line', { x1: pad.l, x2: W - pad.r, y1: y, y2: y }); cut.style.stroke = 'var(--ink-2)'; cut.style.strokeDasharray = '4 4'; svg.insertBefore(cut, svg.firstChild.nextSibling);
+    svg.appendChild(el('text', { x: pad.l + 4, y: y - 5, class: 'lbl' }, 'playoff line'));
+  }
+  function drawProb(svg, tip, hist) {
+    const W = 760, H = 300, pad = { l: 44, r: 150, t: 12, b: 28 };
+    const pts = hist.map(h => ({ week: h.week, v: h.odds.map(metricOf) }));
+    const yOf = v => pad.t + (1 - v) * (H - pad.t - pad.b);
+    drawLines(svg, tip, pts, yOf, [0, 0.25, 0.5, 0.75, 1], v => `${Math.round(v * 100)}%`, W, H, pad);
+    svg.setAttribute('aria-label', `${metricName()} odds by week`);
+  }
+  function drawHistTable(hist) {
+    const head = `<thead><tr><th>Team</th>${hist.map(h => `<th class="num">Wk ${h.week}</th>`).join('')}</tr></thead>`;
+    const order = league.teams.map((_, i) => i).sort((a, b) => hist[hist.length - 1].finish[a] - hist[hist.length - 1].finish[b]);
+    const body = order.map(i => `<tr><td class="teamcell">${esc(N(i))}</td>${hist.map(h => `<td class="num">${h.finish[i]} · ${Math.round(metricOf(h.odds[i]) * 100)}%</td>`).join('')}</tr>`).join('');
+    $('histTable').innerHTML = head + `<tbody>${body}</tbody>`;
+  }
+
+  let toastTimer;
+  function toast(msg) { const t = $('toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toastTimer); toastTimer = setTimeout(() => t.classList.remove('show'), 1800); }
+
+  load();
+})();
+</script>
+</body>
+</html>
